@@ -6,30 +6,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Gamebook.Pages
 {
     public class StartModel : PageModel
-    {
-        /*private const string KEY = "AMAZINGADVENTURE";
-        
+    {   
         private ISessionStorage<GameState> _ss;
-        private ILocationProvider _lp;*/
+        private ILocationProvider _lp;
+        private GameState _game;
         
-        public StartModel(/*ISessionStorage<GameState> ss, ILocationProvider lp*/)
+        public StartModel(ISessionStorage<GameState> ss, ILocationProvider lp)
         {
-            /*_ss = ss;
-            _lp = lp;*/
+            _ss = ss;
+            _lp = lp;
+            _game = new GameState();
         }
-        /*
-        public Location Location { get; set; }
-        public List<Connection> Targets { get; set; }
-        public GameState State { get; set; }*/
 
-        public void OnGet(/*Room id*/)
+        public int HP { get; set; }
+        public int Armor { get; set; }
+        public int Damage { get; set; }
+        public int ID { get; set; } = 0;
+
+        public void OnGet()
         {
-            /*State = _ss.LoadOrCreate(KEY);
-            // TODO: kontroly legitimnosti pøesunu
-            State.Location = id;
-            _ss.Save(KEY, State);
-            Location = _lp.GetLocation(id);
-            Targets = _lp.GetConnectionsFrom(id);*/
+            _game.Armor = 10;
+            HP = _game.HP;
+            Armor = _game.Armor;
+            Damage = _game.Damage;
         }
     }
 }

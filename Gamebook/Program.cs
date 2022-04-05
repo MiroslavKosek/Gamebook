@@ -4,8 +4,8 @@ using Gamebook.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddSingleton<ILocationProvider>();
-//builder.Services.AddSingleton<ISessionStorage<GameState>>();
+builder.Services.AddSingleton<ILocationProvider, LocationProvider>();
+builder.Services.AddScoped(typeof(ISessionStorage<>), typeof(SessionStorage<>));
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
