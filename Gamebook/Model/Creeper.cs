@@ -7,8 +7,16 @@
 
         public void Attack(GameState gs)
         {
-            gs.HP -= Damage;
-            HP = 0;
+            if (gs.Armor > 0)
+            {
+                gs.Armor -= Damage;
+                HP = 0;
+            }
+            else
+            {
+                gs.HP -= Damage;
+                HP = 0;
+            }
         }
     }
 }

@@ -3,7 +3,17 @@
 @{
 }
 
-<h1>Start</h1>
+<h1>Home</h1>
 <p>HP: @Model.HP</p>
 <p>Armor: @Model.Armor</p>
 <p>Damage: @Model.Damage</p>
+@if(Model.HasArmor) {
+    <p>You have equiped armor</p>
+}
+@if(Model.HasSword) {
+    <p>You are holding sword in your hand</p>
+}
+@if (!Model.HasArmor && !Model.HasSword)
+{
+    <a class="btn btn-success m-auto" asp-page="Start" asp-page-handler="Armor" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Take equipment</a>
+}
