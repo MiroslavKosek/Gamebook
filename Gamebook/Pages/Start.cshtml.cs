@@ -6,16 +6,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Gamebook.Pages
 {
     public class StartModel : PageModel
-    {   
-        private ISessionStorage<GameState> _ss;
+    {
+        private const string KEY = "Player"; //identifikátor session promìnné
+        private SessionStorage<GameState> _ss;
         private ILocationProvider _lp;
-        private GameState _game = new GameState();
-        
-        public StartModel(ISessionStorage<GameState> ss, ILocationProvider lp)
+        private readonly IHttpContextAccessor _hca; //HttpContextAccessor zpøístupní HttpContext
+
+        private ISession _session => _hca.HttpContext.Session;
+
+        public StartModel(SessionStorage<GameState> ss, ILocationProvider lp, IHttpContextAccessor hca)
         {
             _ss = ss;
             _lp = lp;
+            _hca = hca;
         }
+
+        public Location Location { get; set; }
+        public List<Connection> Targets { get; set; }
+        public GameState State { get; set; }
 
         public int HP { get; set; }
         public int Armor { get; set; }
@@ -24,56 +32,71 @@ namespace Gamebook.Pages
         public bool HasSword { get; set; }
         public int ID { get; set; } = 0;
 
-        public void OnGet()
+        public void OnGet(/*Room id*/)
         {
-            /*_game.GetArmor();
-            _game.GetSword();*/
-            HP = _game.HP;
-            Armor = _game.Armor;
-            Damage = _game.Damage;
-            HasArmor = _game.HasArmor;
-            HasSword = _game.HasSword;
+            
+            State = _ss.LoadOrCreate(KEY);
+            /*
+            // TODO: kontroly legitimnosti pøesunu
+            State.Location = id;*/
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            _ss.Save(KEY, State);
+            /*
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionFrom(id);*/
         }
 
         public IActionResult OnGetArmor(bool armor, bool sword)
         {
-            HP = _game.HP;
-            Armor = _game.Armor;
-            Damage = _game.Damage;
-            HasArmor = _game.HasArmor;
-            HasSword = _game.HasSword;
+            State = _ss.LoadOrCreate(KEY);
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            _ss.Save(KEY, State);
 
             if (!armor && !sword)
             {
-                _game.GetArmor();
-                _game.GetSword();
-                HasArmor = _game.HasArmor;
-                HasSword = _game.HasSword;
-                HP = _game.HP;
-                Armor = _game.Armor;
-                Damage = _game.Damage;
+                State = _ss.LoadOrCreate(KEY);
+                State.GetArmor();
+                State.GetSword();
+                HasArmor = State.HasArmor;
+                HasSword = State.HasSword;
+                HP = State.HP;
+                Armor = State.Armor;
+                Damage = State.Damage;
+                _ss.Save(KEY, State);
                 return Page();
             }
 
             if (!armor)
             {
-                _game.GetArmor();
-                HasArmor = _game.HasArmor;
-                HasSword = _game.HasSword;
-                HP = _game.HP;
-                Armor = _game.Armor;
-                Damage = _game.Damage;
+                State = _ss.LoadOrCreate(KEY);
+                State.GetArmor();
+                HasArmor = State.HasArmor;
+                HasSword = State.HasSword;
+                HP = State.HP;
+                Armor = State.Armor;
+                Damage = State.Damage;
+                _ss.Save(KEY, State);
                 return Page();
             }
 
             if (!sword)
             {
-                _game.GetSword();
-                HasArmor = _game.HasArmor;
-                HasSword = _game.HasSword;
-                HP = _game.HP;
-                Armor = _game.Armor;
-                Damage = _game.Damage;
+                State = _ss.LoadOrCreate(KEY);
+                State.GetSword();
+                HasArmor = State.HasArmor;
+                HasSword = State.HasSword;
+                HP = State.HP;
+                Armor = State.Armor;
+                Damage = State.Damage;
+                _ss.Save(KEY, State);
                 return Page();
             }
 

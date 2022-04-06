@@ -24,3 +24,5 @@ D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\refint\Gamebook.dll
 D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.pdb
 D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.genruntimeconfig.cache
 D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\ref\Gamebook.dll
+D:\C#\Gamebook\Gamebook\bin\Debug\net6.0\Utf8Json.dll
+D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.csproj.CopyComplete

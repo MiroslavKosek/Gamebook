@@ -2,6 +2,25 @@
 @model Gamebook.Pages.StartModel
 @{
 }
+@{
+    /*
+    <h1>@Model.Location.Title</h1>
+    <div>@Model.Location.Description</div>
+    <div class="m-1">
+        @foreach (var target in Model.Targets)
+        {
+            @if (String.IsNullOrEmpty(target.TargetSpecialPage))
+            {
+                <a class="btn btn-secondary" asp-page="Place" asp-route-id="@target.To">@target.Description</a>
+            }
+            else
+            {
+                <a class="btn btn-secondary" asp-page="@target.TargetSpecialPage" asp-route-id="@target.To">@target.Description</a>
+            }
+        }
+    </div>
+    */
+}
 
 <h1>Home</h1>
 <p>HP: @Model.HP</p>
