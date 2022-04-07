@@ -4,7 +4,12 @@ namespace Gamebook.Model
 {
     public class LocationProvider : ILocationProvider
     {
-        public List<Location> Locations { get; set; }
+        public List<Location> Locations { get; set; } = new List<Location>
+        {
+            new Location("Home", "You are in home"),
+            new Location("Road", "You are on road"),
+            new Location("Nether", "You are in nether")
+        };
 
         public bool ExistsLocation(int id)
         {
@@ -31,7 +36,7 @@ namespace Gamebook.Model
 
         public Location GetLocation(int id)
         {
-            throw new NotImplementedException();
+            return Locations[id];
         }
 
         public bool IsNavigationLegitimate(int from, int to, GameState state)

@@ -26,3 +26,31 @@ D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.genruntimeconfig.cache
 D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\ref\Gamebook.dll
 D:\C#\Gamebook\Gamebook\bin\Debug\net6.0\Utf8Json.dll
 D:\C#\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.csproj.CopyComplete
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\appsettings.Development.json
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\appsettings.json
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\Gamebook.staticwebassets.runtime.json
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\Gamebook.exe
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\Gamebook.deps.json
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\Gamebook.runtimeconfig.json
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\Gamebook.dll
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\ref\Gamebook.dll
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\Gamebook.pdb
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\bin\Debug\net6.0\Utf8Json.dll
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.csproj.AssemblyReference.cache
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.GeneratedMSBuildEditorConfig.editorconfig
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.AssemblyInfoInputs.cache
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.AssemblyInfo.cs
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.csproj.CoreCompileInputs.cache
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.MvcApplicationPartsAssemblyInfo.cache
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.RazorAssemblyInfo.cache
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.RazorAssemblyInfo.cs
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\staticwebassets.build.json
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\staticwebassets.development.json
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\scopedcss\bundle\Gamebook.styles.css
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\scopedcss\projectbundle\Gamebook.bundle.scp.css
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.csproj.CopyComplete
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.dll
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\ref\Gamebook.dll
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.pdb
+X:\2. ročník\2021 PRG\Gamebook\Gamebook\obj\Debug\net6.0\Gamebook.genruntimeconfig.cache

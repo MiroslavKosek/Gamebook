@@ -16,6 +16,8 @@ namespace Gamebook.Pages
         private SessionStorage<GameState> _ss;
         public GameState State { get; set; }
 
+        public int ID { get; set; } = 0;
+
         public IndexModel(ILogger<IndexModel> logger, IHttpContextAccessor hca, SessionStorage<GameState> ss)
         {
             _logger = logger;
@@ -25,10 +27,11 @@ namespace Gamebook.Pages
 
         public void OnGet()
         {
-
+            _session.Clear();
         }
-        public IActionResult OnGetStore()
+        public IActionResult OnGetStore(int id)
         {
+            ID = id;
             State = _ss.LoadOrCreate(KEY);
             _ss.Save(KEY, new GameState());
             return RedirectToPage("Start");
