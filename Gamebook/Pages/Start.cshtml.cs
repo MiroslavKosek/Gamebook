@@ -30,24 +30,24 @@ namespace Gamebook.Pages
         public int Damage { get; set; }
         public bool HasArmor { get; set; }
         public bool HasSword { get; set; }
-        public int ID { get; set; } = 0;
 
-        public void OnGet(/*Room id*/)
+        [TempData]
+        public int ID { get; set; }
+
+        public void OnGet(int id)
         {
             
             State = _ss.LoadOrCreate(KEY);
-            /*
             // TODO: kontroly legitimnosti pøesunu
-            State.Location = id;*/
+            State.Location = id;
             HP = State.HP;
             Armor = State.Armor;
             Damage = State.Damage;
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
             _ss.Save(KEY, State);
-            /*
             Location = _lp.GetLocation(id);
-            Targets = _lp.GetConnectionFrom(id);*/
+            //Targets = _lp.GetConnectionFrom(id);
         }
 
         public IActionResult OnGetArmor(bool armor, bool sword)
