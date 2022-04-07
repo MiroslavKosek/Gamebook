@@ -34,7 +34,7 @@ namespace Gamebook.Pages
             ID = id;
             State = _ss.LoadOrCreate(KEY);
             _ss.Save(KEY, new GameState());
-            return RedirectToPage("Start");
+            return RedirectToPage("Game");
         }
     }
 }

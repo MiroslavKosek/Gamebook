@@ -1,4 +1,5 @@
 ﻿@page
+@using Gamebook.Pages
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -6,5 +7,6 @@
 
 <div class="text-center">
     <h1 class="display-4">Minecraft Adventure</h1>
-    <a asp-page="Start" type="button" class="btn btn-success" asp-route-id="@Model.ID">Start</a>
+    <p>This is amazing story about journey for dragon egg with unexpected turn of events</p>
+    <a asp-page="Game" type="button" class="btn btn-success" asp-route-id="@Model.ID">Start</a>
 </div>

@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "X:\\2. ročník\\2021 PRG\\Gamebook\\Gamebook\\Gamebook.csproj": {}
+    "D:\\C#\\Gamebook\\Gamebook\\Gamebook.csproj": {}
   },
   "projects": {
-    "X:\\2. ročník\\2021 PRG\\Gamebook\\Gamebook\\Gamebook.csproj": {
+    "D:\\C#\\Gamebook\\Gamebook\\Gamebook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "X:\\2. ročník\\2021 PRG\\Gamebook\\Gamebook\\Gamebook.csproj",
+        "projectUniqueName": "D:\\C#\\Gamebook\\Gamebook\\Gamebook.csproj",
         "projectName": "Gamebook",
-        "projectPath": "X:\\2. ročník\\2021 PRG\\Gamebook\\Gamebook\\Gamebook.csproj",
-        "packagesPath": "C:\\Users\\miroslav.pluhar.020\\.nuget\\packages\\",
-        "outputPath": "X:\\2. ročník\\2021 PRG\\Gamebook\\Gamebook\\obj\\",
+        "projectPath": "D:\\C#\\Gamebook\\Gamebook\\Gamebook.csproj",
+        "packagesPath": "C:\\Users\\Numeriosal\\.nuget\\packages\\",
+        "outputPath": "D:\\C#\\Gamebook\\Gamebook\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\miroslav.pluhar.020\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Numeriosal\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -68,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

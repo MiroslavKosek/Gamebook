@@ -31,14 +31,25 @@ namespace Gamebook.Pages
         public bool HasArmor { get; set; }
         public bool HasSword { get; set; }
 
+        public int ID { get; set; } = 0;
+
         [TempData]
-        public int ID { get; set; }
+        public string End { get; set; }
+
+        [TempData]
+        public string End_Description { get; set; }
 
         public void OnGet(int id)
         {
-            
+            ID = id;
             State = _ss.LoadOrCreate(KEY);
             // TODO: kontroly legitimnosti pøesunu
+            if (!_lp.IsNavigationLegitimate(State.Location, id))
+            {
+                End = "Are you trying to cheat?";
+                End_Description = "Start over again to cool your head!";
+                Response.Redirect("End");
+            }
             State.Location = id;
             HP = State.HP;
             Armor = State.Armor;
@@ -47,18 +58,22 @@ namespace Gamebook.Pages
             HasSword = State.HasSword;
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
-            //Targets = _lp.GetConnectionFrom(id);
+            Targets = _lp.GetConnectionsFrom(id);
         }
 
-        public IActionResult OnGetArmor(bool armor, bool sword)
+        public IActionResult OnGetArmor(int id, bool armor, bool sword)
         {
+            ID = id;
             State = _ss.LoadOrCreate(KEY);
+            State.Location = id;
             HP = State.HP;
             Armor = State.Armor;
             Damage = State.Damage;
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
             _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
 
             if (!armor && !sword)
             {
