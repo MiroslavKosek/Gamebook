@@ -12,13 +12,13 @@ namespace Gamebook.Model
         public bool HasSword { get; set; } = false; // má vyrobený sword
         public int Location { get; set; } // místnost, kde se postava nachází
 
-        public void GetArmor()
+        public void GetArmor() // získat armor
         {
             HasArmor = true;
             Armor = 100;
         }
 
-        public void GetSword()
+        public void GetSword() // získat sword
         {
             HasSword = true;
             Damage = 5;
