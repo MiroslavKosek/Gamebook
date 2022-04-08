@@ -10,6 +10,7 @@ builder.Services.AddMemoryCache(); // uložištì pro session
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // pro zpøístupnìní Session uvnitø služeb a stránek
 builder.Services.AddSingleton<SessionStorage<LocationProvider>>();
 builder.Services.AddSingleton<ILocationProvider, LocationProvider>();
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

@@ -7,18 +7,20 @@ namespace Gamebook.Pages
 {
     public class StartModel : PageModel
     {
-        private const string KEY = "Player"; //identifikátor session promìnné
+        private string KEY; //identifikátor session promìnné
         private SessionStorage<GameState> _ss;
         private ILocationProvider _lp;
         private readonly IHttpContextAccessor _hca; //HttpContextAccessor zpøístupní HttpContext
 
         private ISession _session => _hca.HttpContext.Session;
+        private IConfiguration _conf;
 
-        public StartModel(SessionStorage<GameState> ss, ILocationProvider lp, IHttpContextAccessor hca)
+        public StartModel(SessionStorage<GameState> ss, ILocationProvider lp, IHttpContextAccessor hca, IConfiguration config)
         {
             _ss = ss;
             _lp = lp;
             _hca = hca;
+            _conf = config;
         }
 
         public Location Location { get; set; }
@@ -41,6 +43,7 @@ namespace Gamebook.Pages
 
         public void OnGet(int id)
         {
+            KEY = _conf["KEY"];
             ID = id;
             State = _ss.LoadOrCreate(KEY);
             // TODO: kontroly legitimnosti pøesunu
@@ -63,6 +66,7 @@ namespace Gamebook.Pages
 
         public IActionResult OnGetArmor(int id, bool armor, bool sword)
         {
+            KEY = _conf["KEY"];
             ID = id;
             State = _ss.LoadOrCreate(KEY);
             State.Location = id;
@@ -77,6 +81,7 @@ namespace Gamebook.Pages
 
             if (!armor && !sword)
             {
+                KEY = _conf["KEY"];
                 State = _ss.LoadOrCreate(KEY);
                 State.GetArmor();
                 State.GetSword();
@@ -91,6 +96,7 @@ namespace Gamebook.Pages
 
             if (!armor)
             {
+                KEY = _conf["KEY"];
                 State = _ss.LoadOrCreate(KEY);
                 State.GetArmor();
                 HasArmor = State.HasArmor;
@@ -104,6 +110,7 @@ namespace Gamebook.Pages
 
             if (!sword)
             {
+                KEY = _conf["KEY"];
                 State = _ss.LoadOrCreate(KEY);
                 State.GetSword();
                 HasArmor = State.HasArmor;

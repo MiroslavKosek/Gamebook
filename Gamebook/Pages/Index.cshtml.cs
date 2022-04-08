@@ -8,29 +8,33 @@ namespace Gamebook.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        private const string KEY = "Player"; //identifikátor session proměnné
+        private string KEY; //identifikátor session proměnné
 
         private readonly IHttpContextAccessor _hca; //HttpContextAccessor zpřístupní HttpContext
         private ISession _session => _hca.HttpContext.Session;
+        private IConfiguration _conf;
 
         private SessionStorage<GameState> _ss;
         public GameState State { get; set; }
 
         public int ID { get; set; } = 0;
 
-        public IndexModel(ILogger<IndexModel> logger, IHttpContextAccessor hca, SessionStorage<GameState> ss)
+        public IndexModel(ILogger<IndexModel> logger, IHttpContextAccessor hca, SessionStorage<GameState> ss, IConfiguration config)
         {
             _logger = logger;
             _hca = hca;
             _ss = ss;
+            _conf = config;
         }
 
         public void OnGet()
         {
+            KEY = _conf["KEY"];
             _session.Clear();
         }
         public IActionResult OnGetStore(int id)
         {
+            KEY = _conf["KEY"];
             ID = id;
             State = _ss.LoadOrCreate(KEY);
             _ss.Save(KEY, new GameState());

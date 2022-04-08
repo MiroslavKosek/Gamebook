@@ -21,7 +21,7 @@ namespace Gamebook.Model
         public void GetSword() // získat sword
         {
             HasSword = true;
-            Damage = 5;
+            Damage = 10;
         }
     }
 }
