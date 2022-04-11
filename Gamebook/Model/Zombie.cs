@@ -2,6 +2,7 @@
 {
     public class Zombie
     {
+        public string Name { get; set; } = "Zombie";
         public int HP { get; set; } = 50;
         public int Damage { get; set; } = 10;
 

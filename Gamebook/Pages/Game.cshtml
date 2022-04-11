@@ -9,6 +9,7 @@
 <p>HP: @Model.HP</p>
 <p>Armor: @Model.Armor</p>
 <p>Damage: @Model.Damage</p>
+<p>Diamonds: @Model.Diamonds / 26</p>
 
 @if(Model.HasArmor) {
     <p>You have equiped armor</p>
@@ -17,23 +18,32 @@
     <p>You are holding sword in your hand</p>
 }
 <div class="m-1">
+    @if (Model.ID == 3 && !Model.HasPickaxe)
+    {
+        <p>You have forgotten to take your pickaxe, return to home.</p>
+    }
+
     @foreach (var target in Model.Targets)
     {
-        @if (String.IsNullOrEmpty(target.TargetSpecialPage))
+        if (!String.IsNullOrEmpty(target.Description))
         {
-            if (!String.IsNullOrEmpty(target.Description))
-            {
-                <a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a>
-            }
-        }
-        else
-        {
-            <a class="btn btn-secondary" asp-page="@target.TargetSpecialPage" asp-route-id="@target.Target">@target.Description</a>
+            <a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a>
         }
     }
-    @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword)
+
+    @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
     {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Take equipment</a>
+        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a>
+    }
+
+    @if (Model.ID == 0 && !Model.HasPickaxe)
+    {
+        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Pickaxe" asp-route-id="@Model.ID" asp-route-pickaxe="@Model.HasPickaxe">Take Pickaxe</a>
+    }
+
+    @if (Model.ID == 3 && Model.Diamonds < 26 && Model.HasPickaxe)
+    {
+        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a>
     }
 
     <a class="btn btn-danger m-auto" asp-page="Index">Exit game</a>

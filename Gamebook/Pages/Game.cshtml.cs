@@ -11,6 +11,7 @@ namespace Gamebook.Pages
         private SessionStorage<GameState> _ss;
         private ILocationProvider _lp;
         private readonly IHttpContextAccessor _hca; //HttpContextAccessor zpøístupní HttpContext
+        private Random _random;
 
         private ISession _session => _hca.HttpContext.Session;
         private IConfiguration _conf;
@@ -21,6 +22,7 @@ namespace Gamebook.Pages
             _lp = lp;
             _hca = hca;
             _conf = config;
+            _random = new Random();
         }
 
         public Location Location { get; set; }
@@ -32,6 +34,10 @@ namespace Gamebook.Pages
         public int Damage { get; set; }
         public bool HasArmor { get; set; }
         public bool HasSword { get; set; }
+        public int Diamonds { get; set; }
+        public bool Shield { get; set; }
+        public bool HasPickaxe { get; set; }
+        public int RNG { get; set; }
 
         public int ID { get; set; } = 0;
 
@@ -46,7 +52,6 @@ namespace Gamebook.Pages
             KEY = _conf["KEY"];
             ID = id;
             State = _ss.LoadOrCreate(KEY);
-            // TODO: kontroly legitimnosti pøesunu
             if (!_lp.IsNavigationLegitimate(State.Location, id))
             {
                 End = "Are you trying to cheat?";
@@ -57,11 +62,16 @@ namespace Gamebook.Pages
             HP = State.HP;
             Armor = State.Armor;
             Damage = State.Damage;
+            Diamonds = State.Diamonds;
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            RNG = _random.Next(3);
+            Shield = State.Shield;
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
             Targets = _lp.GetConnectionsFrom(id);
+            Console.WriteLine(RNG);
         }
 
         public IActionResult OnGetArmor(int id, bool armor, bool sword)
@@ -73,8 +83,12 @@ namespace Gamebook.Pages
             HP = State.HP;
             Armor = State.Armor;
             Damage = State.Damage;
+            Diamonds = State.Diamonds;
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            RNG = _random.Next(3);
+            Shield = State.Shield;
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
             Targets = _lp.GetConnectionsFrom(id);
@@ -85,44 +99,84 @@ namespace Gamebook.Pages
                 State = _ss.LoadOrCreate(KEY);
                 State.GetArmor();
                 State.GetSword();
+                State.Diamonds = 0;
                 HasArmor = State.HasArmor;
                 HasSword = State.HasSword;
                 HP = State.HP;
                 Armor = State.Armor;
+                RNG = _random.Next(3);
                 Damage = State.Damage;
-                _ss.Save(KEY, State);
-                return Page();
-            }
-
-            if (!armor)
-            {
-                KEY = _conf["KEY"];
-                State = _ss.LoadOrCreate(KEY);
-                State.GetArmor();
-                HasArmor = State.HasArmor;
-                HasSword = State.HasSword;
-                HP = State.HP;
-                Armor = State.Armor;
-                Damage = State.Damage;
-                _ss.Save(KEY, State);
-                return Page();
-            }
-
-            if (!sword)
-            {
-                KEY = _conf["KEY"];
-                State = _ss.LoadOrCreate(KEY);
-                State.GetSword();
-                HasArmor = State.HasArmor;
-                HasSword = State.HasSword;
-                HP = State.HP;
-                Armor = State.Armor;
-                Damage = State.Damage;
+                Diamonds = State.Diamonds;
+                HasPickaxe = State.HasPickaxe;
+                Shield = State.Shield;
                 _ss.Save(KEY, State);
                 return Page();
             }
 
             return Page();
+        }
+
+        public IActionResult OnGetPickaxe(int id, bool pickaxe)
+        {
+            KEY = _conf["KEY"];
+            ID = id;
+            State = _ss.LoadOrCreate(KEY);
+            State.Location = id;
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            Diamonds = State.Diamonds;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            RNG = _random.Next(3);
+            HasPickaxe = State.HasPickaxe;
+            Shield = State.Shield;
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
+
+            if (!pickaxe)
+            {
+                KEY = _conf["KEY"];
+                State = _ss.LoadOrCreate(KEY);
+                State.GetPickaxe();
+                HasArmor = State.HasArmor;
+                HasSword = State.HasSword;
+                HP = State.HP;
+                Armor = State.Armor;
+                RNG = _random.Next(3);
+                Damage = State.Damage;
+                Diamonds = State.Diamonds;
+                HasPickaxe = State.HasPickaxe;
+                Shield = State.Shield;
+                _ss.Save(KEY, State);
+                return Page();
+            }
+
+            return Page();
+        }
+
+        public IActionResult OnGetDiamonds(int id, int diamonds)
+        {
+            KEY = _conf["KEY"];
+            ID = id;
+            State = _ss.LoadOrCreate(KEY);
+            State.Location = id;
+            Diamonds = diamonds;
+            State.GetDiamond();
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            Diamonds = State.Diamonds;
+            HasArmor = State.HasArmor;
+            RNG = _random.Next(3);
+            HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            Shield = State.Shield;
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
+            return Page(); 
         }
     }
 }
