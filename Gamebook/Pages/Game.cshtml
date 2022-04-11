@@ -2,49 +2,63 @@
 @model Gamebook.Pages.StartModel
 @{
 }
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>@Model.Location.Title</h1>
+            <div class="white">@Model.Location.Description</div>
+            <p></p>
+            <p>HP: @Model.HP</p>
+            <p>Armor: @Model.Armor</p>
+            <p>Damage: @Model.Damage</p>
+            <p>Diamonds: @Model.Diamonds / 26</p>
 
-<h1>@Model.Location.Title</h1>
-<div class="white">@Model.Location.Description</div>
-<p></p>
-<p>HP: @Model.HP</p>
-<p>Armor: @Model.Armor</p>
-<p>Damage: @Model.Damage</p>
-<p>Diamonds: @Model.Diamonds / 26</p>
+            @if(Model.HasArmor) {
+                <p>You have equiped armor</p>
+            }
+            @if(Model.HasSword) {
+                <p>You are holding sword in your hand</p>
+            }
+            <div class="m-1">
+                @if (Model.ID == 3 && !Model.HasPickaxe)
+                {
+                    <p class="alert alert-danger w-50" role="alert">You have forgotten to take your pickaxe, return to home.</p>
+                }
 
-@if(Model.HasArmor) {
-    <p>You have equiped armor</p>
-}
-@if(Model.HasSword) {
-    <p>You are holding sword in your hand</p>
-}
-<div class="m-1">
-    @if (Model.ID == 3 && !Model.HasPickaxe)
-    {
-        <p>You have forgotten to take your pickaxe, return to home.</p>
-    }
+                @foreach (var target in Model.Targets)
+                {
+                    if (!String.IsNullOrEmpty(target.Description))
+                    {
+                        <p><a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a></p>
+                    }
+                }
 
-    @foreach (var target in Model.Targets)
-    {
-        if (!String.IsNullOrEmpty(target.Description))
-        {
-            <a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a>
-        }
-    }
+                @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
+                {
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a></p>
+                }
 
-    @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
-    {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a>
-    }
+                @if (Model.ID == 0 && !Model.HasPickaxe)
+                {
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Pickaxe" asp-route-id="@Model.ID" asp-route-pickaxe="@Model.HasPickaxe">Take Pickaxe</a></p>
+                }
 
-    @if (Model.ID == 0 && !Model.HasPickaxe)
-    {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Pickaxe" asp-route-id="@Model.ID" asp-route-pickaxe="@Model.HasPickaxe">Take Pickaxe</a>
-    }
+                @if (Model.ID == 3 && Model.Diamonds < 26 && Model.HasPickaxe)
+                {
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a></p>
+                }
 
-    @if (Model.ID == 3 && Model.Diamonds < 26 && Model.HasPickaxe)
-    {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a>
-    }
-
-    <a class="btn btn-danger m-auto" asp-page="Index">Exit game</a>
+                <p><a class="btn btn-danger m-auto" asp-page="Index">Exit game</a></p>
+            </div>
+        </div>
+        <div class="col-6 text-center">@{/*<img src="~/lib/images/EasterEgg.jpg" /> test obrázku*/}</div>
+        <div class="col">
+            @if (Model.ID == 4)
+            {
+                <p>Enemy Name: @Model.EnemyName</p>
+                <p>Enemy HP: @Model.EnemyHP</p>
+                <p>Enemy Damage: @Model.EnemyDamage</p>
+            }
+    </div>
+    </div>
 </div>

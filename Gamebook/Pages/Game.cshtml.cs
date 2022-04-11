@@ -38,6 +38,13 @@ namespace Gamebook.Pages
         public bool Shield { get; set; }
         public bool HasPickaxe { get; set; }
         public int RNG { get; set; }
+        public Zombie Zombie { get; set; }
+        public Skeleton Skeleton { get; set; }
+        public Creeper Creeper { get; set; }
+        public Dragon Dragon { get; set; }
+        public string EnemyName { get; set; }
+        public int EnemyHP { get; set; }
+        public int EnemyDamage { get; set; }
 
         public int ID { get; set; } = 0;
 
@@ -71,7 +78,30 @@ namespace Gamebook.Pages
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
             Targets = _lp.GetConnectionsFrom(id);
-            Console.WriteLine(RNG);
+            if (ID == 4)
+            {
+                switch (RNG)
+                {
+                    case 0:
+                        Zombie = new Zombie();
+                        EnemyName = Zombie.Name;
+                        EnemyHP = Zombie.HP;
+                        EnemyDamage = Zombie.Damage;
+                        break;
+                    case 1:
+                        Skeleton = new Skeleton();
+                        EnemyName = Skeleton.Name;
+                        EnemyHP = Skeleton.HP;
+                        EnemyDamage = Skeleton.Damage;
+                        break;
+                    default:
+                        Creeper = new Creeper();
+                        EnemyName = Creeper.Name;
+                        EnemyHP = Creeper.HP;
+                        EnemyDamage = Creeper.Damage;
+                        break;
+                }
+            }
         }
 
         public IActionResult OnGetArmor(int id, bool armor, bool sword)
