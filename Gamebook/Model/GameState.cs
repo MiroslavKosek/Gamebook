@@ -14,6 +14,13 @@ namespace Gamebook.Model
         public int Diamonds { get; set; } = 0;
         public bool Shield { get; set; } = false;
         public bool HasPickaxe { get; set; } = false;
+        public Zombie Zombie { get; set; }
+        public Skeleton Skeleton { get; set; }
+        public Creeper Creeper { get; set; }
+        public Dragon Dragon { get; set; }
+        public string EnemyName { get; set; }
+        public int EnemyHP { get; set; } = 0;
+        public int EnemyDamage { get; set; }
 
         public void GetArmor() // nasadit armor
         {
@@ -40,6 +47,66 @@ namespace Gamebook.Model
         public void GetPickaxe()
         {
             HasPickaxe = true;
+        }
+
+        public void GetZombie() //vytvořit zombie
+        {
+            Zombie = new Zombie();
+            EnemyName = Zombie.Name;
+            EnemyHP = Zombie.HP;
+            EnemyDamage = Zombie.Damage;
+        }
+
+        public void GetSkeleton() //vytvořit skeletona
+        {
+            Skeleton = new Skeleton();
+            EnemyName = Skeleton.Name;
+            EnemyHP = Skeleton.HP;
+            EnemyDamage = Skeleton.Damage;
+        }
+
+        public void GetCreeper() //vytvořit creepera
+        {
+            Creeper = new Creeper();
+            EnemyName = Creeper.Name;
+            EnemyHP = Creeper.HP;
+            EnemyDamage = Creeper.Damage;
+        }
+
+        public void GetDragon() //vytvořit draka
+        {
+            Dragon = new Dragon();
+            EnemyName = Dragon.Name;
+            EnemyHP = Dragon.HP;
+            EnemyDamage = Dragon.Damage;
+        }
+
+        public void GetAttacked() //dostat nakládačku
+        {
+            if (Armor == 0)
+            {
+                HP -= EnemyDamage;
+            }
+            else
+            {
+                Armor -= EnemyDamage;
+            }
+
+            if (EnemyName == "Creeper")
+            {
+                EnemyHP = 0;
+            }
+        }
+
+        public void Attack() //zaútočit
+        {
+            EnemyHP -= Damage;
+        }
+
+        public void HealRepair() //doplnit armor a zdraví
+        {
+            Armor = 100;
+            HP = 100;
         }
     }
 }

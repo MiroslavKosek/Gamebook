@@ -6,6 +6,11 @@
         public int HP { get; set; } = 50;
         public int Damage { get; set; } = 100;
 
+        public void GetAttacked(GameState gs)
+        {
+            HP -= gs.Damage;
+        }
+        
         public void Attack(GameState gs)
         {
             if (gs.Armor > 0)

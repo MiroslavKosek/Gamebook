@@ -26,6 +26,11 @@ p, a, h1, h2, h3 {
     margin-top: 40px;
 }
 
+.image {
+    height 480px;
+    width: 854px;
+}
+
 html {
   font-size: 14px;
 }

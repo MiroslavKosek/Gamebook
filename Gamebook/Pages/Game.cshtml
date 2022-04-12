@@ -14,7 +14,7 @@
             <p>Diamonds: @Model.Diamonds / 26</p>
 
             @if(Model.HasArmor) {
-                <p>You have equiped armor</p>
+                <p>You have equipped armor</p>
             }
             @if(Model.HasSword) {
                 <p>You are holding sword in your hand</p>
@@ -29,7 +29,10 @@
                 {
                     if (!String.IsNullOrEmpty(target.Description))
                     {
-                        <p><a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a></p>
+                        if (Model.EnemyHP == 0)
+                        {
+                            <p><a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a></p>
+                        }
                     }
                 }
 
@@ -48,14 +51,52 @@
                     <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a></p>
                 }
 
+                @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0)
+                {
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID" asp-route-name="@Model.EnemyName" asp-route-hp="@Model.EnemyHP" asp-route-damage="@Model.EnemyDamage">Attack</a></p>
+                }
+
+                @if (Model.ID == 14 && Model.EnemyName == "Dragon" && Model.EnemyHP == 0)
+                {
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Finish">Finish him!</a></p>
+                }
+
+                @if (Model.ID == 6 && Model.Armor < 100 || Model.HP < 100)
+                {
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="HealRepair" asp-route-id="@Model.ID">Heal and repair yourself</a></p>
+                }
+
                 <p><a class="btn btn-danger m-auto" asp-page="Index">Exit game</a></p>
             </div>
         </div>
-        <div class="col-6 text-center">@{/*<img src="~/lib/images/EasterEgg.jpg" /> test obrázku*/}</div>
+        <div class="col-6 text-center">
+            @{
+                switch (Model.ID)
+                {
+                    case 0://ID lokace
+                        <img class="image" src="~/lib/images/home.png" /> //obrázek lokace
+                        break;
+                    case 1:
+                        <img class="image" src="~/lib/images/road.png" />
+                        break;
+                    case 5:
+                        <img class="image" src="~/lib/images/village.png" />
+                        break;
+                    case 11:
+                        <img class="image" src="~/lib/images/nether ow.png" />
+                        break;
+                    case 12:
+                        <img class="image" src="~/lib/images/village house.png" />
+                        break;
+                    default:
+                        break;
+                }
+            }
+        </div>
         <div class="col">
-            @if (Model.ID == 4)
+            @if (Model.ID == 4 || Model.ID == 8 || Model.ID == 9 || Model.ID == 14) //enemy staty
             {
-                <p>Enemy Name: @Model.EnemyName</p>
+                <h1>@Model.EnemyName</h1>
                 <p>Enemy HP: @Model.EnemyHP</p>
                 <p>Enemy Damage: @Model.EnemyDamage</p>
             }

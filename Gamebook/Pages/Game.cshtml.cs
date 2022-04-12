@@ -38,12 +38,8 @@ namespace Gamebook.Pages
         public bool Shield { get; set; }
         public bool HasPickaxe { get; set; }
         public int RNG { get; set; }
-        public Zombie Zombie { get; set; }
-        public Skeleton Skeleton { get; set; }
-        public Creeper Creeper { get; set; }
-        public Dragon Dragon { get; set; }
         public string EnemyName { get; set; }
-        public int EnemyHP { get; set; }
+        public int EnemyHP { get; set; } = 0;
         public int EnemyDamage { get; set; }
 
         public int ID { get; set; } = 0;
@@ -65,6 +61,14 @@ namespace Gamebook.Pages
                 End_Description = "Start over again to cool your head!";
                 Response.Redirect("End");
             }
+
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
             State.Location = id;
             HP = State.HP;
             Armor = State.Armor;
@@ -75,33 +79,42 @@ namespace Gamebook.Pages
             HasPickaxe = State.HasPickaxe;
             RNG = _random.Next(3);
             Shield = State.Shield;
-            _ss.Save(KEY, State);
-            Location = _lp.GetLocation(id);
-            Targets = _lp.GetConnectionsFrom(id);
-            if (ID == 4)
+
+            if (ID == 4 || ID == 8 || ID == 9)
             {
                 switch (RNG)
                 {
                     case 0:
-                        Zombie = new Zombie();
-                        EnemyName = Zombie.Name;
-                        EnemyHP = Zombie.HP;
-                        EnemyDamage = Zombie.Damage;
+                        State.GetZombie();
+                        EnemyName = State.EnemyName;
+                        EnemyHP = State.EnemyHP;
+                        EnemyDamage = State.EnemyDamage;
                         break;
                     case 1:
-                        Skeleton = new Skeleton();
-                        EnemyName = Skeleton.Name;
-                        EnemyHP = Skeleton.HP;
-                        EnemyDamage = Skeleton.Damage;
+                        State.GetSkeleton();
+                        EnemyName = State.EnemyName;
+                        EnemyHP = State.EnemyHP;
+                        EnemyDamage = State.EnemyDamage;
                         break;
                     default:
-                        Creeper = new Creeper();
-                        EnemyName = Creeper.Name;
-                        EnemyHP = Creeper.HP;
-                        EnemyDamage = Creeper.Damage;
+                        State.GetCreeper();
+                        EnemyName = State.EnemyName;
+                        EnemyHP = State.EnemyHP;
+                        EnemyDamage = State.EnemyDamage;
                         break;
                 }
             }
+            if (ID == 14)
+            {
+                State.GetDragon();
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+            }
+
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
         }
 
         public IActionResult OnGetArmor(int id, bool armor, bool sword)
@@ -110,6 +123,14 @@ namespace Gamebook.Pages
             ID = id;
             State = _ss.LoadOrCreate(KEY);
             State.Location = id;
+
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
             HP = State.HP;
             Armor = State.Armor;
             Damage = State.Damage;
@@ -119,6 +140,10 @@ namespace Gamebook.Pages
             HasPickaxe = State.HasPickaxe;
             RNG = _random.Next(3);
             Shield = State.Shield;
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
             Targets = _lp.GetConnectionsFrom(id);
@@ -129,6 +154,14 @@ namespace Gamebook.Pages
                 State = _ss.LoadOrCreate(KEY);
                 State.GetArmor();
                 State.GetSword();
+
+                if (State.HP == 0)
+                {
+                    End = "You Died!";
+                    End_Description = "Start over again.";
+                    Response.Redirect("End");
+                }
+
                 State.Diamonds = 0;
                 HasArmor = State.HasArmor;
                 HasSword = State.HasSword;
@@ -139,7 +172,12 @@ namespace Gamebook.Pages
                 Diamonds = State.Diamonds;
                 HasPickaxe = State.HasPickaxe;
                 Shield = State.Shield;
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+                
                 _ss.Save(KEY, State);
+
                 return Page();
             }
 
@@ -152,6 +190,14 @@ namespace Gamebook.Pages
             ID = id;
             State = _ss.LoadOrCreate(KEY);
             State.Location = id;
+
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
             HP = State.HP;
             Armor = State.Armor;
             Damage = State.Damage;
@@ -161,6 +207,10 @@ namespace Gamebook.Pages
             RNG = _random.Next(3);
             HasPickaxe = State.HasPickaxe;
             Shield = State.Shield;
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
             Targets = _lp.GetConnectionsFrom(id);
@@ -170,6 +220,7 @@ namespace Gamebook.Pages
                 KEY = _conf["KEY"];
                 State = _ss.LoadOrCreate(KEY);
                 State.GetPickaxe();
+
                 HasArmor = State.HasArmor;
                 HasSword = State.HasSword;
                 HP = State.HP;
@@ -179,6 +230,10 @@ namespace Gamebook.Pages
                 Diamonds = State.Diamonds;
                 HasPickaxe = State.HasPickaxe;
                 Shield = State.Shield;
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+
                 _ss.Save(KEY, State);
                 return Page();
             }
@@ -192,6 +247,14 @@ namespace Gamebook.Pages
             ID = id;
             State = _ss.LoadOrCreate(KEY);
             State.Location = id;
+
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
             Diamonds = diamonds;
             State.GetDiamond();
             HP = State.HP;
@@ -203,10 +266,89 @@ namespace Gamebook.Pages
             HasSword = State.HasSword;
             HasPickaxe = State.HasPickaxe;
             Shield = State.Shield;
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
             Targets = _lp.GetConnectionsFrom(id);
             return Page(); 
+        }
+
+        public IActionResult OnGetAttack(int id)
+        {
+            KEY = _conf["KEY"];
+            ID = id;
+            State = _ss.LoadOrCreate(KEY);
+
+            State.Attack();
+            State.GetAttacked();
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            Diamonds = State.Diamonds;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            Shield = State.Shield;
+
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
+            return Page();
+        }
+
+        public IActionResult OnGetFinish()
+        {
+            End = "You Won!";
+            End_Description = "Congratulations, you have won this game!";
+            return RedirectToPage("End");
+        }
+
+        public IActionResult OnGetHealRepair(int id)
+        {
+            KEY = _conf["KEY"];
+            ID = id;
+            State = _ss.LoadOrCreate(KEY);
+            State.Location = id;
+
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+            State.HealRepair();
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            Diamonds = State.Diamonds;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            RNG = _random.Next(3);
+            Shield = State.Shield;
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
+
+            return Page();
         }
     }
 }
