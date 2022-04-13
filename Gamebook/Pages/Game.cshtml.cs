@@ -323,9 +323,16 @@ namespace Gamebook.Pages
             KEY = _conf["KEY"];
             ID = id;
             State = _ss.LoadOrCreate(KEY);
+
+            if (State.HP <= 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
             Shield = State.Shield;
             RNG = _random.Next(3);
-            Console.WriteLine(RNG);
             State.Attack();
 
             if (Shield)
@@ -333,18 +340,24 @@ namespace Gamebook.Pages
                 if (RNG != 0)
                 {
                     State.GetAttacked();
+
+                    if (State.HP <= 0)
+                    {
+                        End = "You Died!";
+                        End_Description = "Start over again.";
+                        Response.Redirect("End");
+                    }
                 }
             }
             if (!Shield)
             {
                 State.GetAttacked();
-            }
-
-            if (State.HP == 0)
-            {
-                End = "You Died!";
-                End_Description = "Start over again.";
-                Response.Redirect("End");
+                if (State.HP <= 0)
+                {
+                    End = "You Died!";
+                    End_Description = "Start over again.";
+                    Response.Redirect("End");
+                }
             }
 
             EnemyName = State.EnemyName;
@@ -442,7 +455,6 @@ namespace Gamebook.Pages
                 State = _ss.LoadOrCreate(KEY);
 
                 RNG = _random.Next(3);
-                Console.WriteLine(RNG);
                 if (RNG != 2)
                 {
                     State.GetShield();
