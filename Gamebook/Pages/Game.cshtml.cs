@@ -328,7 +328,7 @@ namespace Gamebook.Pages
 
             if (Shield)
             {
-                if (RNG != 0)
+                if (RNG == 0)
                 {
                     State.GetAttacked();
                 }
@@ -439,9 +439,20 @@ namespace Gamebook.Pages
             {
                 KEY = _conf["KEY"];
                 State = _ss.LoadOrCreate(KEY);
-                State.GetShield();
-                Chance = State.Chance;
-                WinShield = State.WinShield;
+
+                RNG = _random.Next(3);
+                if (RNG != 2)
+                {
+                    State.GetShield();
+                    Chance = State.Chance;
+                    WinShield = State.WinShield;
+                }
+                else
+                {
+                    State.Chance = false;
+                    Chance = State.Chance;
+                    WinShield = State.WinShield;
+                }
 
                 if (State.HP == 0)
                 {
