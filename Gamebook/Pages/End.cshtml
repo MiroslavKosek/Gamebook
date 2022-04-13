@@ -7,5 +7,25 @@
 <div class="text-center">
     <h1 class="display-4">@Model.End</h1>
     <p>@Model.End_Description</p>
+
+    @if (Model.End == "You Won!")
+    {
+        <p><img src="~/lib/images/Dragon_Egg.png" /></p>
+        <script>
+            var audio = new Audio("../lib/sounds/win.mp3")
+            audio.volume = 0.15
+            audio.loop = true
+            audio.play()
+        </script>
+    }
+    else
+    {
+        <script>
+            var audio = new Audio("../lib/sounds/you died.mp3")
+            audio.volume = 0.15
+            audio.play()
+        </script>
+    }
+
     <a class="btn btn-danger m-auto" asp-page="Index">Restart game</a>
 </div>

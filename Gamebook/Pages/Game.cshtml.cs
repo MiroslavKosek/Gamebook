@@ -41,6 +41,10 @@ namespace Gamebook.Pages
         public string EnemyName { get; set; }
         public int EnemyHP { get; set; } = 0;
         public int EnemyDamage { get; set; }
+        public string VillagerName { get; set; }
+        public string VillagerDialog { get; set; }
+        public bool WinShield { get; set; } = false;
+        public bool Chance { get; set; } = true;
 
         public int ID { get; set; } = 0;
 
@@ -79,8 +83,10 @@ namespace Gamebook.Pages
             HasPickaxe = State.HasPickaxe;
             RNG = _random.Next(3);
             Shield = State.Shield;
+            WinShield = State.WinShield;
+            Chance = State.Chance;
 
-            if (ID == 4 || ID == 8 || ID == 9)
+            if (ID == 4)
             {
                 switch (RNG)
                 {
@@ -104,6 +110,47 @@ namespace Gamebook.Pages
                         break;
                 }
             }
+
+            if (ID == 8)
+            {
+                State.GetZombiePigman();
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+            }
+
+            if (ID == 9)
+            {
+                switch (RNG)
+                {
+                    case 0:
+                        State.GetWitherSkeleton();
+                        EnemyName = State.EnemyName;
+                        EnemyHP = State.EnemyHP;
+                        EnemyDamage = State.EnemyDamage;
+                        break;
+                    case 1:
+                        State.GetBlaze();
+                        EnemyName = State.EnemyName;
+                        EnemyHP = State.EnemyHP;
+                        EnemyDamage = State.EnemyDamage;
+                        break;
+                    default:
+                        State.GetWitherSkeleton();
+                        EnemyName = State.EnemyName;
+                        EnemyHP = State.EnemyHP;
+                        EnemyDamage = State.EnemyDamage;
+                        break;
+                }
+            }
+
+            if (ID == 12)
+            {
+                State.GetVillager();
+                VillagerName = State.VillagerName;
+                VillagerDialog = State.VillagerDialog;
+            }
+
             if (ID == 14)
             {
                 State.GetDragon();
@@ -138,7 +185,6 @@ namespace Gamebook.Pages
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
             HasPickaxe = State.HasPickaxe;
-            RNG = _random.Next(3);
             Shield = State.Shield;
             EnemyName = State.EnemyName;
             EnemyHP = State.EnemyHP;
@@ -167,7 +213,6 @@ namespace Gamebook.Pages
                 HasSword = State.HasSword;
                 HP = State.HP;
                 Armor = State.Armor;
-                RNG = _random.Next(3);
                 Damage = State.Damage;
                 Diamonds = State.Diamonds;
                 HasPickaxe = State.HasPickaxe;
@@ -204,7 +249,6 @@ namespace Gamebook.Pages
             Diamonds = State.Diamonds;
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
-            RNG = _random.Next(3);
             HasPickaxe = State.HasPickaxe;
             Shield = State.Shield;
             EnemyName = State.EnemyName;
@@ -225,7 +269,6 @@ namespace Gamebook.Pages
                 HasSword = State.HasSword;
                 HP = State.HP;
                 Armor = State.Armor;
-                RNG = _random.Next(3);
                 Damage = State.Damage;
                 Diamonds = State.Diamonds;
                 HasPickaxe = State.HasPickaxe;
@@ -262,7 +305,6 @@ namespace Gamebook.Pages
             Damage = State.Damage;
             Diamonds = State.Diamonds;
             HasArmor = State.HasArmor;
-            RNG = _random.Next(3);
             HasSword = State.HasSword;
             HasPickaxe = State.HasPickaxe;
             Shield = State.Shield;
@@ -281,9 +323,21 @@ namespace Gamebook.Pages
             KEY = _conf["KEY"];
             ID = id;
             State = _ss.LoadOrCreate(KEY);
-
+            RNG = _random.Next(3);
             State.Attack();
-            State.GetAttacked();
+
+            if (Shield)
+            {
+                if (RNG != 0)
+                {
+                    State.GetAttacked();
+                }
+            }
+            if (!Shield)
+            {
+                State.GetAttacked();
+            }
+
             if (State.HP == 0)
             {
                 End = "You Died!";
@@ -313,7 +367,7 @@ namespace Gamebook.Pages
         public IActionResult OnGetFinish()
         {
             End = "You Won!";
-            End_Description = "Congratulations, you have won this game!";
+            End_Description = "Congratulations, you got your coveted Dragon Egg!";
             return RedirectToPage("End");
         }
 
@@ -338,7 +392,6 @@ namespace Gamebook.Pages
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
             HasPickaxe = State.HasPickaxe;
-            RNG = _random.Next(3);
             Shield = State.Shield;
             EnemyName = State.EnemyName;
             EnemyHP = State.EnemyHP;
@@ -347,6 +400,74 @@ namespace Gamebook.Pages
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
             Targets = _lp.GetConnectionsFrom(id);
+
+            return Page();
+        }
+
+        public IActionResult OnGetGamble(int id, bool chance, bool win)
+        {
+            KEY = _conf["KEY"];
+            ID = id;
+            State = _ss.LoadOrCreate(KEY);
+            State.Location = id;
+
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            Diamonds = State.Diamonds;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            Shield = State.Shield;
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+            VillagerName = State.VillagerName;
+
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
+
+            if (chance && !win)
+            {
+                KEY = _conf["KEY"];
+                State = _ss.LoadOrCreate(KEY);
+                State.GetShield();
+                Chance = State.Chance;
+                WinShield = State.WinShield;
+
+                if (State.HP == 0)
+                {
+                    End = "You Died!";
+                    End_Description = "Start over again.";
+                    Response.Redirect("End");
+                }
+
+                Diamonds = State.Diamonds;
+                HasArmor = State.HasArmor;
+                HasSword = State.HasSword;
+                HP = State.HP;
+                Armor = State.Armor;
+                Damage = State.Damage;
+                Diamonds = State.Diamonds;
+                HasPickaxe = State.HasPickaxe;
+                Shield = State.Shield;
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+                VillagerName = State.VillagerName;
+
+                _ss.Save(KEY, State);
+
+                return Page();
+            }
 
             return Page();
         }

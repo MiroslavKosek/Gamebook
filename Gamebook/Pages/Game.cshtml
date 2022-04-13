@@ -2,7 +2,18 @@
 @model Gamebook.Pages.StartModel
 @{
 }
-<div class="container">
+<script>
+    var audio = new Audio("../lib/sounds/soundtrack.mp3")
+    audio.currentTime = localStorage.getItem("soundtrack")
+    audio.volume = 0.15
+    audio.loop = true
+    audio.play()
+    window.addEventListener("beforeunload", e => {
+            localStorage.setItem("soundtrack", audio.currentTime)
+    })
+</script>
+
+<div class="lmargin rmargin">
     <div class="row">
         <div class="col">
             <h1>@Model.Location.Title</h1>
@@ -19,23 +30,10 @@
             @if(Model.HasSword) {
                 <p>You are holding sword in your hand</p>
             }
+            @if(Model.Shield) {
+                <p>You are holding shield in your other hand</p>
+            }
             <div class="m-1">
-                @if (Model.ID == 3 && !Model.HasPickaxe)
-                {
-                    <p class="alert alert-danger w-50" role="alert">You have forgotten to take your pickaxe, return to home.</p>
-                }
-
-                @foreach (var target in Model.Targets)
-                {
-                    if (!String.IsNullOrEmpty(target.Description))
-                    {
-                        if (Model.EnemyHP == 0)
-                        {
-                            <p><a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a></p>
-                        }
-                    }
-                }
-
                 @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
                 {
                     <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a></p>
@@ -51,19 +49,35 @@
                     <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a></p>
                 }
 
-                @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0)
+                @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 9 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0)
                 {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID" asp-route-name="@Model.EnemyName" asp-route-hp="@Model.EnemyHP" asp-route-damage="@Model.EnemyDamage">Attack</a></p>
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID">Attack</a></p>
                 }
 
-                @if (Model.ID == 14 && Model.EnemyName == "Dragon" && Model.EnemyHP == 0)
+                @if (Model.ID == 14 && Model.EnemyName == "Ender Dragon" && Model.EnemyHP == 0)
                 {
                     <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Finish">Finish him!</a></p>
                 }
 
-                @if (Model.ID == 6 && Model.Armor < 100 || Model.HP < 100)
+                @if (Model.ID == 6 && (Model.Armor < 100 || Model.HP < 100))
                 {
                     <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="HealRepair" asp-route-id="@Model.ID">Heal and repair yourself</a></p>
+                }
+
+                @if (Model.ID == 3 && !Model.HasPickaxe)
+                {
+                    <p class="alert alert-danger w-50" role="alert">You have forgotten to take your pickaxe, go back home.</p>
+                }
+
+                @foreach (var target in Model.Targets)
+                {
+                    if (!String.IsNullOrEmpty(target.Description))
+                    {
+                        if (Model.EnemyHP == 0)
+                        {
+                            <p><a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a></p>
+                        }
+                    }
                 }
 
                 <p><a class="btn btn-danger m-auto" asp-page="Index">Exit game</a></p>
@@ -93,12 +107,136 @@
                 }
             }
         </div>
-        <div class="col">
+        <div class="col lmargin">
+            @if (Model.ID == 12)
+            {
+                <h1>@Model.VillagerName</h1>
+                <img src="~/lib/images/Villager.png" />
+                <script>
+                    var audio = new Audio("../lib/sounds/villager.mp3")
+                    audio.currentTime = localStorage.getItem("villager")
+                    audio.volume = 0.15
+                    audio.loop = true
+                    audio.play()
+                    window.addEventListener("beforeunload", e => {
+                        localStorage.setItem("villager", audio.currentTime)
+                    })
+                </script>
+                @if (!Model.Chance && !Model.WinShield)
+                {
+                    <p>What a shame, that you couldn't get this shield.</p>
+                }
+                if (Model.Chance && !Model.WinShield)
+                {
+                    <p>@Model.VillagerDialog</p>
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Gamble" asp-route-id="@Model.ID" asp-route-chance="@Model.Chance" asp-route-win="@Model.WinShield">Gamble</a></p>
+                }
+                else
+                {
+                    <p>Congratulations, you won this shield.</p>
+                }
+            }
+
             @if (Model.ID == 4 || Model.ID == 8 || Model.ID == 9 || Model.ID == 14) //enemy staty
             {
                 <h1>@Model.EnemyName</h1>
                 <p>Enemy HP: @Model.EnemyHP</p>
                 <p>Enemy Damage: @Model.EnemyDamage</p>
+                @switch (Model.EnemyName)
+                {
+                    case "Zombie":
+                        <img src="~/lib/images/Zombie.png" />
+                        <script>
+                            var audio = new Audio("../lib/sounds/zombie.mp3")
+                            audio.currentTime = localStorage.getItem("zombie")
+                            audio.volume = 0.15
+                            audio.loop = true
+                            audio.play()
+                            window.addEventListener("beforeunload", e => {
+                                localStorage.setItem("zombie", audio.currentTime)
+                            })
+                        </script>
+                        break;
+                    case "Skeleton":
+                        <img src="~/lib/images/Skeleton.png" />
+                        <script>
+                            var audio = new Audio("../lib/sounds/skeleton.mp3")
+                            audio.currentTime = localStorage.getItem("skeleton")
+                            audio.volume = 0.15
+                            audio.loop = true
+                            audio.play()
+                            window.addEventListener("beforeunload", e => {
+                                localStorage.setItem("skeleton", audio.currentTime)
+                            })
+                        </script>
+                        break;
+                    case "Creeper":
+                        <img src="~/lib/images/Creeper.png" />
+                        <script>
+                            var audio = new Audio("../lib/sounds/creeper.mp3")
+                            audio.currentTime = localStorage.getItem("creeper")
+                            audio.volume = 0.15
+                            audio.play()
+                            window.addEventListener("beforeunload", e => {
+                                localStorage.setItem("creeper", audio.currentTime)
+                            })
+                        </script>
+                        break;
+                    case "Ender Dragon":
+                        <img src="~/lib/images/Ender_Dragon.png" />
+                        <script>
+                            var audio = new Audio("../lib/sounds/dragon.mp3")
+                            audio.currentTime = localStorage.getItem("dragon")
+                            audio.volume = 0.15
+                            audio.loop = true
+                            audio.play()
+                            window.addEventListener("beforeunload", e => {
+                                localStorage.setItem("dragon", audio.currentTime)
+                            })
+                        </script>
+                        break;
+                    case "Blaze":
+                        <img src="~/lib/images/Blaze.png" />
+                        <script>
+                            var audio = new Audio("../lib/sounds/blaze.mp3")
+                            audio.currentTime = localStorage.getItem("blaze")
+                            audio.volume = 0.15
+                            audio.loop = true
+                            audio.play()
+                            window.addEventListener("beforeunload", e => {
+                                localStorage.setItem("blaze", audio.currentTime)
+                            })
+                        </script>
+                        break;
+                    case "Zombie Pigman":
+                        <img src="~/lib/images/Zombie_Pigman.png" />
+                        <script>
+                            var audio = new Audio("../lib/sounds/zombie_pigman.mp3")
+                            audio.currentTime = localStorage.getItem("zombie_pigman")
+                            audio.volume = 0.15
+                            audio.loop = true
+                            audio.play()
+                            window.addEventListener("beforeunload", e => {
+                                localStorage.setItem("zombie_pigman", audio.currentTime)
+                            })
+                        </script>
+                        break;
+                    case "Wither Skeleton":
+                        <img src="~/lib/images/Wither_Skeleton.png" />
+                        <script>
+                            var audio = new Audio("../lib/sounds/wither_skeleton.mp3")
+                            audio.currentTime = localStorage.getItem("wither_skeleton")
+                            audio.volume = 0.15
+                            audio.loop = true
+                            audio.play()
+                            window.addEventListener("beforeunload", e => {
+                                localStorage.setItem("wither_skeleton", audio.currentTime)
+                            })
+                        </script>
+                        break;
+                    default:
+                        break;
+                }
             }
     </div>
     </div>

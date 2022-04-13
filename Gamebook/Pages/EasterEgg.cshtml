@@ -7,5 +7,11 @@
     <h1 class="display-4">OOPS! Wrong game.</h1>
     <p>Congratulations, you have found an easter egg.</p>
     <p><img src="~/lib/images/EasterEgg.jpg" /></p>
+    <script>
+        var audio = new Audio("../lib/sounds/easter egg.mp3")
+        audio.volume = 0.15
+        audio.loop = true
+        audio.play()
+    </script>
     <a class="btn btn-danger m-auto" asp-page="Index">Restart game</a>
 </div>

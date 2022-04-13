@@ -18,9 +18,17 @@ namespace Gamebook.Model
         public Skeleton Skeleton { get; set; }
         public Creeper Creeper { get; set; }
         public Dragon Dragon { get; set; }
+        public Blaze Blaze { get; set; }
+        public Wither_Skeleton Wither_Skeleton { get; set; }
+        public Zombie_Pigman Zombie_Pigman { get; set; }
+        public Villager Villager { get; set; }
         public string EnemyName { get; set; }
         public int EnemyHP { get; set; } = 0;
         public int EnemyDamage { get; set; }
+        public string VillagerName { get; set; }
+        public string VillagerDialog { get; set; }
+        public bool WinShield { get; set; } = false;
+        public bool Chance { get; set; } = true;
 
         public void GetArmor() // nasadit armor
         {
@@ -42,6 +50,8 @@ namespace Gamebook.Model
         public void GetShield()
         {
             Shield = true;
+            Chance = false;
+            WinShield = true;
         }
 
         public void GetPickaxe()
@@ -79,6 +89,37 @@ namespace Gamebook.Model
             EnemyName = Dragon.Name;
             EnemyHP = Dragon.HP;
             EnemyDamage = Dragon.Damage;
+        }
+
+        public void GetBlaze() //vytvořit blaze
+        {
+            Blaze = new Blaze();
+            EnemyName = Blaze.Name;
+            EnemyHP = Blaze.HP;
+            EnemyDamage = Blaze.Damage;
+        }
+
+        public void GetWitherSkeleton() //vytvořit wither skeletona
+        {
+            Wither_Skeleton = new Wither_Skeleton();
+            EnemyName = Wither_Skeleton.Name;
+            EnemyHP = Wither_Skeleton.HP;
+            EnemyDamage = Wither_Skeleton.Damage;
+        }
+
+        public void GetZombiePigman() //vytvořit zombie pigmana
+        {
+            Zombie_Pigman = new Zombie_Pigman();
+            EnemyName = Zombie_Pigman.Name;
+            EnemyHP = Zombie_Pigman.HP;
+            EnemyDamage = Zombie_Pigman.Damage;
+        }
+
+        public void GetVillager() //vytvořit villagera
+        {
+            Villager = new Villager();
+            VillagerName = Villager.Name;
+            VillagerDialog = Villager.Dialog;
         }
 
         public void GetAttacked() //dostat nakládačku

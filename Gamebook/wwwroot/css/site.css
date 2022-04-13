@@ -27,8 +27,17 @@ p, a, h1, h2, h3 {
 }
 
 .image {
-    height 480px;
-    width: 854px;
+    height 405px;
+    width: 720px;
+    margin-left: 25px;
+}
+
+.lmargin {
+    margin-left: 100px;
+}
+
+.rmargin {
+    margin-right: 100px;
 }
 
 html {
