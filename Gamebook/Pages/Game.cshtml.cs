@@ -323,12 +323,14 @@ namespace Gamebook.Pages
             KEY = _conf["KEY"];
             ID = id;
             State = _ss.LoadOrCreate(KEY);
+            Shield = State.Shield;
             RNG = _random.Next(3);
+            Console.WriteLine(RNG);
             State.Attack();
 
             if (Shield)
             {
-                if (RNG == 0)
+                if (RNG != 0)
                 {
                     State.GetAttacked();
                 }
@@ -356,7 +358,6 @@ namespace Gamebook.Pages
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
             HasPickaxe = State.HasPickaxe;
-            Shield = State.Shield;
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -441,6 +442,7 @@ namespace Gamebook.Pages
                 State = _ss.LoadOrCreate(KEY);
 
                 RNG = _random.Next(3);
+                Console.WriteLine(RNG);
                 if (RNG != 2)
                 {
                     State.GetShield();
