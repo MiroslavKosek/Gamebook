@@ -7,21 +7,21 @@ namespace Gamebook.Model
     {
         public List<Location> Locations { get; set; } = new List<Location>
         {
-            new Location("Home", "You are looking on your shelf, where the dragon egg must be."),//0
-            new Location("Road", "You are on road."),//OW 1
-            new Location("Nether", "You are in nether."),//2
-            new Location("Mine", "You are not scared to enter. You have been here before."),//3
-            new Location("Encounter", ""),//OW//4
-            new Location("Village", "After long trip, you finally found a Village."),//5
-            new Location("Stronghold", "You are finally here, you can finish your journey."),//6
-            new Location("End", "What a lucky day today. You don't have to go to the Fortress in Nether."),//7
-            new Location("Encounter", ""),//Nether//8
-            new Location("Fortress", "Let's get some blaze rods."),//9
+            new Location("Home", "You are looking on your shelf, where the dragon egg must be."),//0  ///*
+            new Location("Road", "You are on road."),//OW 1  ///*
+            new Location("Nether", "You are in nether."),//2 ///*
+            new Location("Mine", "You are not scared to enter. You have been here before."),//3 ///*
+            new Location("Encounter", ""),//OW//4 ///*
+            new Location("Village", "After long trip, you finally found a Village."),//5 ///*
+            new Location("Stronghold", "You are finally here, you can finish your journey."),//6 ///*
+            new Location("End portal", "What a lucky day today. You don't have to go to the Fortress in Nether."),//7 ////*
+            new Location("Encounter", ""),//Nether//8 ///*
+            new Location("Fortress", "Let's get some blaze rods."),//9///*
             new Location("Road", "You are on road in Nether."),//Nether//10
-            new Location("Nether Portal", "You are on your way to the nether."),//11
-            new Location("Village house", "You have entered the house in Village."),//12
-            new Location("Nether Portal", " Portal to the Stronghold."),//13
-            new Location("END"," Welcome in End."),//14
+            new Location("Nether Portal", "You are on your way to the nether."),//11 ///*
+            new Location("Village house", "You have entered the house in Village."),//12///*
+            new Location("Nether Portal to the Stronghold", " Portal to the Stronghold."),//13 
+            new Location("END"," Welcome in End."),//14 ///*
         };
 
         public List<Connection> Connections { get; set; } = new List<Connection>
