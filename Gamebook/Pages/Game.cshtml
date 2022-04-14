@@ -3,13 +3,13 @@
 @{
 }
 <script>
-    var audio = new Audio("../lib/sounds/soundtrack.mp3")
-    audio.currentTime = localStorage.getItem("soundtrack")
-    audio.volume = 0.15
-    audio.loop = true
-    audio.play()
+    let soundtrack = new Audio("../lib/sounds/bgsound.mp3")
+    soundtrack.currentTime = localStorage.getItem("soundtrack")
+    soundtrack.volume = 0.15
+    soundtrack.loop = true
+    soundtrack.play()
     window.addEventListener("beforeunload", e => {
-            localStorage.setItem("soundtrack", audio.currentTime)
+            localStorage.setItem("soundtrack", soundtrack.currentTime)
     })
 </script>
 
@@ -150,6 +150,7 @@
                     audio.play()
                     window.addEventListener("beforeunload", e => {
                         localStorage.setItem("villager", audio.currentTime)
+                        localStorage.setItem("soundtrack", soundtrack.currentTime)
                     })
                 </script>
                 @if (!Model.Chance && !Model.WinShield)
@@ -184,6 +185,7 @@
                             audio.play()
                             window.addEventListener("beforeunload", e => {
                                 localStorage.setItem("zombie", audio.currentTime)
+                                localStorage.setItem("soundtrack", soundtrack.currentTime)
                             })
                         </script>
                         break;
@@ -197,6 +199,7 @@
                             audio.play()
                             window.addEventListener("beforeunload", e => {
                                 localStorage.setItem("skeleton", audio.currentTime)
+                                localStorage.setItem("soundtrack", soundtrack.currentTime)
                             })
                         </script>
                         break;
@@ -209,6 +212,7 @@
                             audio.play()
                             window.addEventListener("beforeunload", e => {
                                 localStorage.setItem("creeper", audio.currentTime)
+                                localStorage.setItem("soundtrack", soundtrack.currentTime)
                             })
                         </script>
                         break;
@@ -222,6 +226,7 @@
                             audio.play()
                             window.addEventListener("beforeunload", e => {
                                 localStorage.setItem("dragon", audio.currentTime)
+                                localStorage.setItem("soundtrack", soundtrack.currentTime)
                             })
                         </script>
                         break;
@@ -235,6 +240,7 @@
                             audio.play()
                             window.addEventListener("beforeunload", e => {
                                 localStorage.setItem("blaze", audio.currentTime)
+                                localStorage.setItem("soundtrack", soundtrack.currentTime)
                             })
                         </script>
                         break;
@@ -248,6 +254,7 @@
                             audio.play()
                             window.addEventListener("beforeunload", e => {
                                 localStorage.setItem("zombie_pigman", audio.currentTime)
+                                localStorage.setItem("soundtrack", soundtrack.currentTime)
                             })
                         </script>
                         break;
@@ -261,6 +268,7 @@
                             audio.play()
                             window.addEventListener("beforeunload", e => {
                                 localStorage.setItem("wither_skeleton", audio.currentTime)
+                                localStorage.setItem("soundtrack", soundtrack.currentTime)
                             })
                         </script>
                         break;
