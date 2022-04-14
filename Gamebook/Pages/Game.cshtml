@@ -171,8 +171,8 @@
             @if (Model.ID == 4 || Model.ID == 8 || Model.ID == 9 || Model.ID == 14) //enemy staty
             {
                 <h1>@Model.EnemyName</h1>
-                <p>Enemy HP: @Model.EnemyHP</p>
-                <p>Enemy Damage: @Model.EnemyDamage</p>
+                <p>@Model.EnemyName HP: @Model.EnemyHP</p>
+                <p>@Model.EnemyName Damage: @Model.EnemyDamage</p>
                 @switch (Model.EnemyName)
                 {
                     case "Zombie":
