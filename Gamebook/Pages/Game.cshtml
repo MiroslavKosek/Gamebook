@@ -88,7 +88,7 @@
                 @if(Model.Shield) {
                     <p>You are holding shield in your other hand (33% to block)</p>
                 }
-                <div class="m-1">
+                <div class="m-1", class="but">
                     @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
                     {
                         <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a></p>

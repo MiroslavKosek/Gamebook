@@ -27,8 +27,8 @@ p, a, h1, h2, h3 {
 }
 
 .image {
-    height: 80%;
-    width: 80%;
+    height: 85%;
+    width: 85%;
     z-index: -1;
     position: fixed;
 }
@@ -66,6 +66,6 @@ body {
 }
 
 .box {
-    margin-right: 25%;
-    margin-left: 9.5%;
+    margin-left:7.5%;
+    margin-top:3.5%;
 }
