@@ -27,9 +27,10 @@ p, a, h1, h2, h3 {
 }
 
 .image {
-    height 405px;
-    width: 720px;
-    margin-left: 25px;
+    height: 80%;
+    width: 80%;
+    z-index: -1;
+    position: fixed;
 }
 
 .lmargin {
@@ -41,20 +42,30 @@ p, a, h1, h2, h3 {
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.col {
+    z-index: 1;
+    position: fixed;
+}
+
+.box {
+    margin-right: 25%;
+    margin-left: 9.5%;
 }

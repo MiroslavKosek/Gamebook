@@ -13,129 +13,131 @@
     })
 </script>
 
+<div class="box">
+    @{
+        switch (Model.ID)
+        {
+            case 0://ID lokace
+                <img class="image" src="~/lib/images/home.png" /> //obrázek lokace
+                break;
+            case 1:
+                <img class="image" src="~/lib/images/road ow.png" />
+                break;
+            case 2:
+                <img class="image" src="~/lib/images/teleport nether.png" />
+                break;
+            case 3:
+                <img class="image" src="~/lib/images/mine.png" />
+                break;                    
+            case 4:
+                <img class="image" src="~/lib/images/enemy ow.png" />
+                break;
+            case 5:
+                <img class="image" src="~/lib/images/village.png" />
+                break;
+            case 6:
+                <img class="image" src="~/lib/images/stronghold.png" />
+                break;
+            case 7:
+                <img class="image" src="~/lib/images/end portal.png" />
+                break;
+            case 8:
+                <img class="image" src="~/lib/images/enemy nether.png" />
+                break;
+            case 9:
+                <img class="image" src="~/lib/images/fortress.png" />
+                break;
+            case 10:
+                <img class="image" src="~/lib/images/road nether.png" />
+                break;
+            case 11:
+                <img class="image" src="~/lib/images/nether ow.png" />
+                break;
+            case 12:
+                <img class="image" src="~/lib/images/village house.png" />
+                break;
+            case 13:
+                <img class="image" src="~/lib/images/teleport stronghold.png" />
+                break;
+            case 14:
+                <img class="image" src="~/lib/images/end.png" />
+                break;
+            default:
+                break;
+        }
+    }
+</div>
+
 <div class="lmargin rmargin">
-    <div class="row">
-        <div class="col">
-            <h1>@Model.Location.Title</h1>
-            <div class="white">@Model.Location.Description</div>
-            <p></p>
-            <p>HP: @Model.HP</p>
-            <p>Armor: @Model.Armor</p>
-            <p>Damage: @Model.Damage</p>
-            <p>Diamonds: @Model.Diamonds / 26</p>
+        <div class="row">
+            <div class="col">
+                <h1>@Model.Location.Title</h1>
+                <div class="white">@Model.Location.Description</div>
+                <p></p>
+                <p>HP: @Model.HP</p>
+                <p>Armor: @Model.Armor</p>
+                <p>Damage: @Model.Damage</p>
+                <p>Diamonds: @Model.Diamonds / 26</p>
 
-            @if(Model.HasArmor) {
-                <p>You have equipped armor</p>
-            }
-            @if(Model.HasSword) {
-                <p>You are holding sword in your hand</p>
-            }
-            @if(Model.Shield) {
-                <p>You are holding shield in your other hand (33% to block)</p>
-            }
-            <div class="m-1">
-                @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
-                {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a></p>
+                @if(Model.HasArmor) {
+                    <p>You have equipped armor</p>
                 }
-
-                @if (Model.ID == 0 && !Model.HasPickaxe)
-                {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Pickaxe" asp-route-id="@Model.ID" asp-route-pickaxe="@Model.HasPickaxe">Take Pickaxe</a></p>
+                @if(Model.HasSword) {
+                    <p>You are holding sword in your hand</p>
                 }
-
-                @if (Model.ID == 3 && Model.Diamonds < 26 && Model.HasPickaxe)
-                {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a></p>
+                @if(Model.Shield) {
+                    <p>You are holding shield in your other hand (33% to block)</p>
                 }
-
-                @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 9 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0)
-                {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID">Attack</a></p>
-                }
-
-                @if (Model.ID == 14 && Model.EnemyName == "Ender Dragon" && Model.EnemyHP == 0)
-                {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Finish">Finish him!</a></p>
-                }
-
-                @if (Model.ID == 6 && (Model.Armor < 100 || Model.HP < 100))
-                {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="HealRepair" asp-route-id="@Model.ID">Heal and repair yourself</a></p>
-                }
-
-                @if (Model.ID == 3 && !Model.HasPickaxe)
-                {
-                    <p class="alert alert-danger w-50" role="alert">You have forgotten to take your pickaxe, go back home.</p>
-                }
-
-                @foreach (var target in Model.Targets)
-                {
-                    if (!String.IsNullOrEmpty(target.Description))
+                <div class="m-1">
+                    @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
                     {
-                        if (Model.EnemyHP == 0)
+                        <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a></p>
+                    }
+
+                    @if (Model.ID == 0 && !Model.HasPickaxe)
+                    {
+                        <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Pickaxe" asp-route-id="@Model.ID" asp-route-pickaxe="@Model.HasPickaxe">Take Pickaxe</a></p>
+                    }
+
+                    @if (Model.ID == 3 && Model.Diamonds < 26 && Model.HasPickaxe)
+                    {
+                        <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a></p>
+                    }
+
+                    @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 9 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0)
+                    {
+                        <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID">Attack</a></p>
+                    }
+
+                    @if (Model.ID == 14 && Model.EnemyName == "Ender Dragon" && Model.EnemyHP == 0)
+                    {
+                        <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Finish">Finish him!</a></p>
+                    }
+
+                    @if (Model.ID == 6 && (Model.Armor < 100 || Model.HP < 100))
+                    {
+                        <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="HealRepair" asp-route-id="@Model.ID">Heal and repair yourself</a></p>
+                    }
+
+                    @if (Model.ID == 3 && !Model.HasPickaxe)
+                    {
+                        <p class="alert alert-danger w-50" role="alert">You have forgotten to take your pickaxe, go back home.</p>
+                    }
+
+                    @foreach (var target in Model.Targets)
+                    {
+                        if (!String.IsNullOrEmpty(target.Description))
                         {
-                            <p><a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a></p>
+                            if (Model.EnemyHP == 0)
+                            {
+                                <p><a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a></p>
+                            }
                         }
                     }
-                }
 
-                <p><a class="btn btn-danger m-auto" asp-page="Index">Exit game</a></p>
+                    <p><a class="btn btn-danger m-auto" asp-page="Index">Exit game</a></p>
+                </div>
             </div>
-        </div>
-        <div class="col-6 text-center">
-            @{
-                switch (Model.ID)
-                {
-                    case 0://ID lokace
-                        <img class="image" src="~/lib/images/home.png" /> //obrázek lokace
-                        break;
-                    case 1:
-                        <img class="image" src="~/lib/images/road ow.png" />
-                        break;
-                    case 2:
-                        <img class="image" src="~/lib/images/teleport nether.png" />
-                        break;
-                    case 3:
-                        <img class="image" src="~/lib/images/mine.png" />
-                        break;                    
-                    case 4:
-                        <img class="image" src="~/lib/images/enemy ow.png" />
-                        break;
-                    case 5:
-                        <img class="image" src="~/lib/images/village.png" />
-                        break;
-                    case 6:
-                        <img class="image" src="~/lib/images/stronghold.png" />
-                        break;
-                    case 7:
-                        <img class="image" src="~/lib/images/end portal.png" />
-                        break;
-                    case 8:
-                        <img class="image" src="~/lib/images/enemy nether.png" />
-                        break;
-                    case 9:
-                        <img class="image" src="~/lib/images/fortress.png" />
-                        break;
-                    case 10:
-                        <img class="image" src="~/lib/images/road nether.png" />
-                        break;
-                    case 11:
-                        <img class="image" src="~/lib/images/nether ow.png" />
-                        break;
-                    case 12:
-                        <img class="image" src="~/lib/images/village house.png" />
-                        break;
-                    case 13:
-                        <img class="image" src="~/lib/images/teleport stronghold.png" />
-                        break;
-                    case 14:
-                        <img class="image" src="~/lib/images/end.png" />
-                        break;
-                    default:
-                        break;
-                }
-            }
         </div>
         <div class="col lmargin">
             @if (Model.ID == 12)
@@ -276,6 +278,6 @@
                         break;
                 }
             }
-    </div>
+        </div>
     </div>
 </div>
