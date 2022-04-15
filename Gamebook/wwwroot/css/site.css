@@ -8,6 +8,7 @@ body {
     background-image: url(../lib/images/background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    margin-bottom: 60px;
 }
 
 #EasterEgg {
@@ -15,10 +16,12 @@ body {
 }
 
 p, a, h1, h2, h3 {
+    font-weight: 200;
     color: white;
 }
 
 .white {
+    font-weight: 200;
     color: white;
 }
 
@@ -43,21 +46,8 @@ p, a, h1, h2, h3 {
 
 html {
     font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
-html {
     position: relative;
     min-height: 100%;
-}
-
-body {
-    margin-bottom: 60px;
 }
 
 .col {
@@ -66,6 +56,38 @@ body {
 }
 
 .box {
-    margin-left:7.5%;
-    margin-top:3.5%;
+    margin-left: 7.5%;
+    margin-top: 3.5%;
+}
+
+.bottom {
+    margin-left: 200px;
+    margin-top: 35%;
+}
+
+.enemy {
+    margin-top: 17.5%;
+    margin-left: 42.5%;
+}
+
+.enemy-stats {
+    position: absolute;
+    margin-left: 150%;
+}
+
+.villager-stats {
+    width: 250%;
+    position: absolute;
+    margin-top: 50%;
+    margin-left: 150%;
+}
+
+.bmargin {
+    margin-bottom: 2.5%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
 }
