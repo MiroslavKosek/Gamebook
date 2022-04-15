@@ -102,25 +102,25 @@
         @if (Model.ID == 12)
         {
             <div class="enemy-stats">
-            <h1>@Model.VillagerName</h1>
+                <h1>@Model.VillagerName</h1>
             </div>
             @if (!Model.Chance && !Model.WinShield)
             {
                 <div class="villager-stats">
-                <p>What a shame, that you couldn't get this shield.</p>
+                    <p>What a shame, that you couldn't get this shield.</p>
                 </div>
             }
             if (Model.Chance && !Model.WinShield)
             {
                 <div class="villager-stats">
-                <p>@Model.VillagerDialog</p>
-                <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Gamble" asp-route-id="@Model.ID" asp-route-chance="@Model.Chance" asp-route-win="@Model.WinShield">Gamble</a></p>
+                    <p>@Model.VillagerDialog</p>
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Gamble" asp-route-id="@Model.ID" asp-route-chance="@Model.Chance" asp-route-win="@Model.WinShield">Gamble</a></p>
                 </div>
             }
             if (Model.WinShield)
             {
                 <div class="villager-stats">
-                <p>Congratulations, you won this shield.</p>
+                    <p>Congratulations, you won this shield.</p>
                 </div>
             }
             
