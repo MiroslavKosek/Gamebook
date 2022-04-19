@@ -22,6 +22,7 @@ namespace Gamebook.Model
             new Location("Village house", "You have entered the house in Village."),//12///*
             new Location("Nether Portal to the Stronghold", " Portal to the Stronghold."),//13 
             new Location("END"," Welcome in End."),//14 ///*
+            new Location("Blacksmith", "You arrived to blacksmith, try to ask him, if he has some bow for you.") //15
         };
 
         public List<Connection> Connections { get; set; } = new List<Connection>
@@ -34,6 +35,8 @@ namespace Gamebook.Model
             new Connection(1, 11, "Go to Nether portal"),//z cesty do portalu
             new Connection(4, 5, "Go to Village"),//z cesty/enemy do vesnice
             new Connection(5, 12, "Enter the house"),//dum ve versnici,
+            new Connection(5, 15, "Go to Blacksmith"),
+            new Connection(15, 5, "Go back"),
             new Connection(12, 5,"Go outside"),
             new Connection(4, 6, "Go to Stronghold"), // z cesty do strongholdu
             new Connection(6, 7, "Go to End portal"),//stronhgold skrz portal
@@ -53,7 +56,7 @@ namespace Gamebook.Model
             new Connection(11, 1, "Return to Road"),//od portalu zpet na cestu
             new Connection(2, 11,"Return to over World "),
             new Connection(3, 1, "Return to Road"),//z dolu na cestu
-            new Connection(7, 16, "Return to the Stronghold corridors"),//zpet do cest ve strongholdu
+            new Connection(7, 6, "Return to the Stronghold corridors"),//zpet do cest ve strongholdu
         };
 
         public bool ExistsLocation (int id)

@@ -97,6 +97,10 @@
         {
             <p class="alert alert-danger" role="alert">You have forgotten to take your pickaxe, go back home.</p>
         }
+        @if (Model.Bow)
+        {
+            <p>You have bow on your back</p>
+        }
     </div>
     <div class="col enemy">
         @if (Model.ID == 12)
@@ -137,6 +141,40 @@
                 })
             </script>
         }
+
+        @if (Model.ID == 15)
+        {
+            <div class="enemy-stats">
+                <h1>@Model.VillagerName</h1>
+            </div>
+            <div class="villager-stats">
+                <p>@Model.VillagerDialog</p>
+                @if (!Model.Bow)
+                {
+                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Bow" asp-route-id="@Model.ID" asp-route-bow="@Model.Bow">Get bow</a></p>
+                }
+            </div>
+
+            if (Model.Bow)
+            {
+                <div class="villager-stats">
+                    <p>You already have bow.</p>
+                </div>
+            }
+            
+            <img src="~/lib/images/Villager.png" />
+            <script>
+                var audio = new Audio("../lib/sounds/villager.mp3")
+                audio.currentTime = localStorage.getItem("villager")
+                audio.volume = 0.15
+                audio.loop = true
+                audio.play()
+                window.addEventListener("beforeunload", e => {
+                    localStorage.setItem("villager", audio.currentTime)
+                    localStorage.setItem("soundtrack", soundtrack.currentTime)
+                })
+            </script>
+          }
 
         @if (Model.ID == 4 || Model.ID == 8 || Model.ID == 9 || Model.ID == 14) //enemy staty
         {

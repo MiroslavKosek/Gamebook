@@ -14,6 +14,7 @@ namespace Gamebook.Model
         public int Diamonds { get; set; } = 0;
         public bool Shield { get; set; } = false;
         public bool HasPickaxe { get; set; } = false;
+        public bool Bow { get; set; } = false;
         public Zombie Zombie { get; set; }
         public Skeleton Skeleton { get; set; }
         public Creeper Creeper { get; set; }
@@ -57,6 +58,11 @@ namespace Gamebook.Model
         public void GetPickaxe()
         {
             HasPickaxe = true;
+        }
+
+        public void GetBow()
+        {
+            Bow = true;
         }
 
         public void GetZombie() //vytvořit zombie

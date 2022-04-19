@@ -45,6 +45,7 @@ namespace Gamebook.Pages
         public string VillagerDialog { get; set; }
         public bool WinShield { get; set; } = false;
         public bool Chance { get; set; } = true;
+        public bool Bow { get; set; } = false;
 
         public int ID { get; set; } = 0;
 
@@ -85,6 +86,7 @@ namespace Gamebook.Pages
             Shield = State.Shield;
             WinShield = State.WinShield;
             Chance = State.Chance;
+            Bow = State.Bow;
 
             if (ID == 4)
             {
@@ -144,11 +146,16 @@ namespace Gamebook.Pages
                 }
             }
 
-            if (ID == 12)
+            if (ID == 12 || ID == 15)
             {
                 State.GetVillager();
                 VillagerName = State.VillagerName;
                 VillagerDialog = State.VillagerDialog;
+                if (ID == 15)
+                {
+                    State.VillagerDialog = "Do you need a bow?";
+                    VillagerDialog = State.VillagerDialog;
+                }
             }
 
             if (ID == 14)
@@ -189,6 +196,7 @@ namespace Gamebook.Pages
             EnemyName = State.EnemyName;
             EnemyHP = State.EnemyHP;
             EnemyDamage = State.EnemyDamage;
+            Bow = State.Bow;
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -220,7 +228,8 @@ namespace Gamebook.Pages
                 EnemyName = State.EnemyName;
                 EnemyHP = State.EnemyHP;
                 EnemyDamage = State.EnemyDamage;
-                
+                Bow = State.Bow;
+
                 _ss.Save(KEY, State);
 
                 return Page();
@@ -254,6 +263,7 @@ namespace Gamebook.Pages
             EnemyName = State.EnemyName;
             EnemyHP = State.EnemyHP;
             EnemyDamage = State.EnemyDamage;
+            Bow = State.Bow;
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -276,6 +286,7 @@ namespace Gamebook.Pages
                 EnemyName = State.EnemyName;
                 EnemyHP = State.EnemyHP;
                 EnemyDamage = State.EnemyDamage;
+                Bow = State.Bow;
 
                 _ss.Save(KEY, State);
                 return Page();
@@ -299,7 +310,31 @@ namespace Gamebook.Pages
             }
 
             Diamonds = diamonds;
-            State.GetDiamond();
+            RNG = _random.Next(3);
+            switch (RNG)
+            {
+                case 0:
+                    if(State.Diamonds + 1 <= 26)
+                    {
+                        State.GetDiamond();
+                    }
+                    break;
+                case 1:
+                    if (State.Diamonds + 2 <= 26)
+                    {
+                        State.GetDiamond();
+                        State.GetDiamond();
+                    }   
+                    break;
+                default:
+                    if (State.Diamonds + 3 <= 26)
+                    {
+                        State.GetDiamond();
+                        State.GetDiamond();
+                        State.GetDiamond();
+                    }
+                    break;
+            }
             HP = State.HP;
             Armor = State.Armor;
             Damage = State.Damage;
@@ -311,6 +346,7 @@ namespace Gamebook.Pages
             EnemyName = State.EnemyName;
             EnemyHP = State.EnemyHP;
             EnemyDamage = State.EnemyDamage;
+            Bow = State.Bow;
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -371,6 +407,7 @@ namespace Gamebook.Pages
             HasArmor = State.HasArmor;
             HasSword = State.HasSword;
             HasPickaxe = State.HasPickaxe;
+            Bow = State.Bow;
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -410,6 +447,7 @@ namespace Gamebook.Pages
             EnemyName = State.EnemyName;
             EnemyHP = State.EnemyHP;
             EnemyDamage = State.EnemyDamage;
+            Bow = State.Bow;
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -444,6 +482,7 @@ namespace Gamebook.Pages
             EnemyHP = State.EnemyHP;
             EnemyDamage = State.EnemyDamage;
             VillagerName = State.VillagerName;
+            Bow = State.Bow;
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -488,9 +527,67 @@ namespace Gamebook.Pages
                 EnemyHP = State.EnemyHP;
                 EnemyDamage = State.EnemyDamage;
                 VillagerName = State.VillagerName;
+                Bow = State.Bow;
 
                 _ss.Save(KEY, State);
 
+                return Page();
+            }
+
+            return Page();
+        }
+
+        public IActionResult OnGetBow(int id, bool bow)
+        {
+            KEY = _conf["KEY"];
+            ID = id;
+            State = _ss.LoadOrCreate(KEY);
+            State.Location = id;
+
+            if (State.HP == 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            Diamonds = State.Diamonds;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            Shield = State.Shield;
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+            Bow = State.Bow;
+
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
+
+            if (!bow)
+            {
+                KEY = _conf["KEY"];
+                State = _ss.LoadOrCreate(KEY);
+                State.GetBow();
+
+                HasArmor = State.HasArmor;
+                HasSword = State.HasSword;
+                HP = State.HP;
+                Armor = State.Armor;
+                Damage = State.Damage;
+                Diamonds = State.Diamonds;
+                HasPickaxe = State.HasPickaxe;
+                Shield = State.Shield;
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+                Bow = State.Bow;
+
+                _ss.Save(KEY, State);
                 return Page();
             }
 
