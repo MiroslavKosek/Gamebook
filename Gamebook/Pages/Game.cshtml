@@ -99,7 +99,7 @@
         }
         @if (Model.Bow)
         {
-            <p>You have bow on your back</p>
+            <p>You have bow on your back (25% to hit)</p>
         }
     </div>
     <div class="col enemy">
@@ -118,7 +118,7 @@
             {
                 <div class="villager-stats">
                     <p>@Model.VillagerDialog</p>
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Gamble" asp-route-id="@Model.ID" asp-route-chance="@Model.Chance" asp-route-win="@Model.WinShield">Gamble</a></p>
+                    <p><a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Gamble" asp-route-id="@Model.ID" asp-route-chance="@Model.Chance" asp-route-win="@Model.WinShield">Gamble</a></p>
                 </div>
             }
             if (Model.WinShield)
@@ -128,7 +128,7 @@
                 </div>
             }
             
-            <img src="~/lib/images/Villager.png" />
+            <img class="mob" src="~/lib/images/Villager.png" />
             <script>
                 var audio = new Audio("../lib/sounds/villager.mp3")
                 audio.currentTime = localStorage.getItem("villager")
@@ -144,25 +144,29 @@
 
         @if (Model.ID == 15)
         {
-            <div class="enemy-stats">
-                <h1>@Model.VillagerName</h1>
-            </div>
-            <div class="villager-stats">
-                <p>@Model.VillagerDialog</p>
-                @if (!Model.Bow)
-                {
-                    <p><a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Bow" asp-route-id="@Model.ID" asp-route-bow="@Model.Bow">Get bow</a></p>
-                }
-            </div>
+
+            if (!Model.Bow)
+            {
+                <div class="enemy-stats">
+                    <h1>@Model.VillagerName</h1>
+                </div>
+                <div class="villager-stats">
+                    <p>@Model.VillagerDialog</p>
+                    <p><a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Bow" asp-route-id="@Model.ID" asp-route-bow="@Model.Bow">Get bow</a></p>
+                </div>
+            }
 
             if (Model.Bow)
             {
+                <div class="enemy-stats">
+                    <h1>@Model.VillagerName</h1>
+                </div>
                 <div class="villager-stats">
                     <p>You already have bow.</p>
                 </div>
             }
             
-            <img src="~/lib/images/Villager.png" />
+            <img class="mob" src="~/lib/images/Villager-blacksmith.png" />
             <script>
                 var audio = new Audio("../lib/sounds/villager.mp3")
                 audio.currentTime = localStorage.getItem("villager")
@@ -174,7 +178,7 @@
                     localStorage.setItem("soundtrack", soundtrack.currentTime)
                 })
             </script>
-          }
+        }
 
         @if (Model.ID == 4 || Model.ID == 8 || Model.ID == 9 || Model.ID == 14) //enemy staty
         {
@@ -186,7 +190,7 @@
             @switch (Model.EnemyName)
             {
                 case "Zombie":
-                    <img src="~/lib/images/Zombie.png" />
+                    <img class="mob" src="~/lib/images/Zombie.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/zombie.mp3")
                         audio.currentTime = localStorage.getItem("zombie")
@@ -200,7 +204,7 @@
                     </script>
                     break;
                 case "Skeleton":
-                    <img src="~/lib/images/Skeleton.png" />
+                    <img class="mob" src="~/lib/images/Skeleton.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/skeleton.mp3")
                         audio.currentTime = localStorage.getItem("skeleton")
@@ -214,7 +218,7 @@
                     </script>
                     break;
                 case "Creeper":
-                    <img src="~/lib/images/Creeper.png" />
+                    <img class="mob" src="~/lib/images/Creeper.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/creeper.mp3")
                         audio.currentTime = localStorage.getItem("creeper")
@@ -227,16 +231,10 @@
                     </script>
                     break;
                 case "End Crystal":
-                    <img src="~/lib/images/End_Crystal.png" />
-                    <script>
-                        var audio = new Audio("../lib/sounds/dragon.mp3")
-                        audio.volume = 0.15
-                        audio.loop = true
-                        audio.play()
-                    </script>
+                    <img class="mob" src="~/lib/images/End_Crystal.png" />
                     break;
                 case "Ender Dragon":
-                    <img src="~/lib/images/Ender_Dragon.png" />
+                    <img class="mob" src="~/lib/images/Ender_Dragon.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/dragon.mp3")
                         audio.currentTime = localStorage.getItem("dragon")
@@ -250,7 +248,7 @@
                     </script>
                     break;
                 case "Blaze":
-                    <img src="~/lib/images/Blaze.png" />
+                    <img class="mob" src="~/lib/images/Blaze.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/blaze.mp3")
                         audio.currentTime = localStorage.getItem("blaze")
@@ -264,7 +262,7 @@
                     </script>
                     break;
                 case "Zombie Pigman":
-                    <img src="~/lib/images/Zombie_Pigman.png" />
+                    <img class="mob" src="~/lib/images/Zombie_Pigman.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/zombie_pigman.mp3")
                         audio.currentTime = localStorage.getItem("zombie_pigman")
@@ -278,7 +276,7 @@
                     </script>
                     break;
                 case "Wither Skeleton":
-                    <img src="~/lib/images/Wither_Skeleton.png" />
+                    <img class="mob" src="~/lib/images/Wither_Skeleton.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/wither_skeleton.mp3")
                         audio.currentTime = localStorage.getItem("wither_skeleton")
@@ -301,32 +299,46 @@
 <div class="bottom">
     @if (Model.ID == 0 && !Model.HasArmor && !Model.HasSword && Model.Diamonds == 26)
     {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a>
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Armor" asp-route-id="@Model.ID" asp-route-armor="@Model.HasArmor" asp-route-sword="@Model.HasSword">Craft and take equipment</a>
     }
 
     @if (Model.ID == 0 && !Model.HasPickaxe)
     {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Pickaxe" asp-route-id="@Model.ID" asp-route-pickaxe="@Model.HasPickaxe">Take Pickaxe</a>
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Pickaxe" asp-route-id="@Model.ID" asp-route-pickaxe="@Model.HasPickaxe">Take Pickaxe</a>
     }
 
     @if (Model.ID == 3 && Model.Diamonds < 26 && Model.HasPickaxe)
     {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a>
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a>
     }
 
-    @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 9 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0)
+    @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 9 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0 && Model.EnemyName == "Ender Dragon")
     {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID">Attack</a>
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID">Attack</a>
+    }
+
+    @if (Model.ID == 14 && Model.EnemyHP != 0 && Model.EnemyName == "End Crystal")
+    {
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="BowAttack" asp-route-id="@Model.ID">Attack</a>
+        @if (Model.RNG == 0)
+        {
+            <script>
+                var audio = new Audio("../lib/sounds/end-crystal.mp3")
+                audio.volume = 0.15
+                audio.loop = true
+                audio.play()
+            </script>
+        }
     }
 
     @if (Model.ID == 14 && Model.EnemyName == "Ender Dragon" && Model.EnemyHP == 0)
     {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="Finish">Finish him!</a>
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Finish">Finish him!</a>
     }
 
     @if (Model.ID == 6 && (Model.Armor < 100 || Model.HP < 100))
     {
-        <a class="btn btn-success m-auto" asp-page="Game" asp-page-handler="HealRepair" asp-route-id="@Model.ID">Heal and repair yourself</a>
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="HealRepair" asp-route-id="@Model.ID">Heal and repair yourself</a>
     }
 
     @foreach (var target in Model.Targets)
@@ -335,9 +347,9 @@
         {
             if (Model.EnemyHP == 0)
             {
-                <a class="btn btn-secondary" asp-page="Game" asp-route-id="@target.Target">@target.Description</a>
+                <a class="btn btn-secondary padding" asp-page="Game" asp-route-id="@target.Target">@target.Description</a>
             }
         }
     }
-    <a class="btn btn-danger m-auto" asp-page="Index">Exit game</a>
+    <a class="btn btn-danger m-auto padding" asp-page="Index">Exit game</a>
 </div>

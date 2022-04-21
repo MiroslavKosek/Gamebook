@@ -368,8 +368,6 @@ namespace Gamebook.Pages
             ID = id;
             State = _ss.LoadOrCreate(KEY);
 
-            EnemyName = State.EnemyName;
-
             if (State.HP <= 0)
             {
                 End = "You Died!";
@@ -378,12 +376,10 @@ namespace Gamebook.Pages
             }
 
             Shield = State.Shield;
-            RNG = _random.Next(3);
 
-            if (EnemyName != "End Crystal")
-            {
-                State.Attack();
-            }
+            State.Attack();
+
+            RNG = _random.Next(3);
 
             if (Shield)
             {
@@ -410,20 +406,44 @@ namespace Gamebook.Pages
                 }
             }
 
+            EnemyName = State.EnemyName;
+            EnemyHP = State.EnemyHP;
+            EnemyDamage = State.EnemyDamage;
+
+            HP = State.HP;
+            Armor = State.Armor;
+            Damage = State.Damage;
+            Diamonds = State.Diamonds;
+            HasArmor = State.HasArmor;
+            HasSword = State.HasSword;
+            HasPickaxe = State.HasPickaxe;
+            Bow = State.Bow;
+
+            _ss.Save(KEY, State);
+            Location = _lp.GetLocation(id);
+            Targets = _lp.GetConnectionsFrom(id);
+            return Page();
+        }
+
+        public IActionResult OnGetBowAttack(int id)
+        {
+            KEY = _conf["KEY"];
+            ID = id;
+            State = _ss.LoadOrCreate(KEY);
+
+            if (State.HP <= 0)
+            {
+                End = "You Died!";
+                End_Description = "Start over again.";
+                Response.Redirect("End");
+            }
+
+            Shield = State.Shield;
             RNG = _random.Next(4);
 
-            if(Bow && ID == 14 && EnemyName == "End Crystal")
+            if (RNG == 0)
             {
-                if(RNG == 0)
-                {
-                    State.Attack();
-                }
-                if (State.HP <= 0)
-                {
-                    End = "You Died!";
-                    End_Description = "Start over again.";
-                    Response.Redirect("End");
-                }
+                State.Attack();
             }
 
             EnemyName = State.EnemyName;
@@ -438,6 +458,14 @@ namespace Gamebook.Pages
             HasSword = State.HasSword;
             HasPickaxe = State.HasPickaxe;
             Bow = State.Bow;
+
+            if (EnemyHP == 0)
+            {
+                State.GetDragon();
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+            }
 
             _ss.Save(KEY, State);
             Location = _lp.GetLocation(id);
@@ -592,6 +620,7 @@ namespace Gamebook.Pages
             EnemyName = State.EnemyName;
             EnemyHP = State.EnemyHP;
             EnemyDamage = State.EnemyDamage;
+            VillagerName = State.VillagerName;
             Bow = State.Bow;
 
             _ss.Save(KEY, State);
@@ -615,6 +644,7 @@ namespace Gamebook.Pages
                 EnemyName = State.EnemyName;
                 EnemyHP = State.EnemyHP;
                 EnemyDamage = State.EnemyDamage;
+                VillagerName = State.VillagerName;
                 Bow = State.Bow;
 
                 _ss.Save(KEY, State);

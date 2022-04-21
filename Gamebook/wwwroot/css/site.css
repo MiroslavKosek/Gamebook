@@ -66,24 +66,33 @@ html {
 }
 
 .enemy {
-    margin-top: 17.5%;
-    margin-left: 42.5%;
+    margin-top: 10%;
+    margin-left: 35%;
 }
 
 .enemy-stats {
     position: absolute;
-    margin-left: 150%;
+    margin-left: 200%;
 }
 
 .villager-stats {
     width: 250%;
     position: absolute;
     margin-top: 50%;
-    margin-left: 150%;
+    margin-left: 200%;
+}
+
+.padding {
+    padding: 12px 24px 12px 24px!important;
 }
 
 .bmargin {
     margin-bottom: 2.5%;
+}
+
+.mob {
+    width: 200%;
+    height: 200%;
 }
 
 @media (min-width: 768px) {

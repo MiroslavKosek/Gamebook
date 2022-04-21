@@ -157,11 +157,14 @@ namespace Gamebook.Model
 
         public void Attack() //zaútočit
         {
-            if (EnemyName == "End Crystal")
+            if (Bow && EnemyName == "End Crystal")
             {
                 EnemyHP -= 1;
             }
-            EnemyHP -= Damage;
+            else
+            {
+                EnemyHP -= Damage;
+            }
         }
 
         public void HealRepair() //doplnit armor a zdraví
