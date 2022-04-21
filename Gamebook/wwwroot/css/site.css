@@ -95,8 +95,51 @@ html {
     height: 200%;
 }
 
+.background {
+    padding: 6px 6px 6px 6px;
+    background-color: rgba(0, 0, 0, 0.40);
+}
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
+    }
+}
+
+@media (max-width: 1366px) {
+    .lmargin {
+        margin-left: 55px;
+        max-width: 40%;
+    }
+
+    .background {
+        padding: 1px 1px 1px 1px;
+        background-color: rgba(0, 0, 0, 0.40);
+    }
+
+    .enemy {
+        margin-top: 10%;
+        margin-left: 40%;
+    }
+
+    .enemy-stats {
+        position: absolute;
+        margin-left: 150%;
+    }
+
+    .villager-stats {
+        width: 250%;
+        position: absolute;
+        margin-top: 50%;
+        margin-left: 150%;
+    }
+
+    .padding {
+        padding: 6px 12px 6px 12px !important;
+    }
+
+    .mob {
+        width: 125%;
+        height: 125%;
     }
 }

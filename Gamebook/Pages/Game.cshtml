@@ -69,7 +69,7 @@
 </div>
 
 <div class="lmargin rmargin">
-    <div class="col lmargin">
+    <div class="col lmargin background">
         <h1>@Model.Location.Title</h1>
         <div class="white">@Model.Location.Description</div>
         <p></p>
@@ -105,29 +105,28 @@
     <div class="col enemy">
         @if (Model.ID == 12)
         {
-            <div class="enemy-stats">
+            <div class="enemy-stats background">
                 <h1>@Model.VillagerName</h1>
             </div>
             @if (!Model.Chance && !Model.WinShield)
             {
-                <div class="villager-stats">
+                <div class="villager-stats background">
                     <p>What a shame, that you couldn't get this shield.</p>
                 </div>
             }
             if (Model.Chance && !Model.WinShield)
             {
-                <div class="villager-stats">
+                <div class="villager-stats background">
                     <p>@Model.VillagerDialog</p>
                     <p><a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Gamble" asp-route-id="@Model.ID" asp-route-chance="@Model.Chance" asp-route-win="@Model.WinShield">Gamble</a></p>
                 </div>
             }
             if (Model.WinShield)
             {
-                <div class="villager-stats">
+                <div class="villager-stats background">
                     <p>Congratulations, you won this shield.</p>
                 </div>
             }
-            
             <img class="mob" src="~/lib/images/Villager.png" />
             <script>
                 var audio = new Audio("../lib/sounds/villager.mp3")
@@ -147,10 +146,10 @@
 
             if (!Model.Bow)
             {
-                <div class="enemy-stats">
+                <div class="enemy-stats background">
                     <h1>@Model.VillagerName</h1>
                 </div>
-                <div class="villager-stats">
+                <div class="villager-stats background">
                     <p>@Model.VillagerDialog</p>
                     <p><a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Bow" asp-route-id="@Model.ID" asp-route-bow="@Model.Bow">Get bow</a></p>
                 </div>
@@ -158,10 +157,10 @@
 
             if (Model.Bow)
             {
-                <div class="enemy-stats">
+                <div class="enemy-stats background">
                     <h1>@Model.VillagerName</h1>
                 </div>
-                <div class="villager-stats">
+                <div class="villager-stats background">
                     <p>You already have bow.</p>
                 </div>
             }
@@ -182,7 +181,7 @@
 
         @if (Model.ID == 4 || Model.ID == 8 || Model.ID == 9 || Model.ID == 14) //enemy staty
         {
-            <div class="enemy-stats">
+            <div class="enemy-stats background">
                 <h1>@Model.EnemyName</h1>
                 <p>HP: @Model.EnemyHP</p>
                 <p>Damage: @Model.EnemyDamage</p>
@@ -319,7 +318,7 @@
 
     @if (Model.ID == 14 && Model.EnemyHP != 0 && Model.EnemyName == "End Crystal")
     {
-        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="BowAttack" asp-route-id="@Model.ID">Attack</a>
+        <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="BowAttack" asp-route-id="@Model.ID">Shoot with bow</a>
         @if (Model.RNG == 0)
         {
             <script>
