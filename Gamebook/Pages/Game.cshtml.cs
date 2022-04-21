@@ -160,6 +160,14 @@ namespace Gamebook.Pages
 
             if (ID == 14)
             {
+                State.GetEndCrystal();
+                EnemyName = State.EnemyName;
+                EnemyHP = State.EnemyHP;
+                EnemyDamage = State.EnemyDamage;
+            }
+
+            if (ID == 14 && EnemyHP == 0)
+            {
                 State.GetDragon();
                 EnemyName = State.EnemyName;
                 EnemyHP = State.EnemyHP;
@@ -360,6 +368,8 @@ namespace Gamebook.Pages
             ID = id;
             State = _ss.LoadOrCreate(KEY);
 
+            EnemyName = State.EnemyName;
+
             if (State.HP <= 0)
             {
                 End = "You Died!";
@@ -369,7 +379,11 @@ namespace Gamebook.Pages
 
             Shield = State.Shield;
             RNG = _random.Next(3);
-            State.Attack();
+
+            if (EnemyName != "End Crystal")
+            {
+                State.Attack();
+            }
 
             if (Shield)
             {
@@ -388,6 +402,22 @@ namespace Gamebook.Pages
             if (!Shield)
             {
                 State.GetAttacked();
+                if (State.HP <= 0)
+                {
+                    End = "You Died!";
+                    End_Description = "Start over again.";
+                    Response.Redirect("End");
+                }
+            }
+
+            RNG = _random.Next(4);
+
+            if(Bow && ID == 14 && EnemyName == "End Crystal")
+            {
+                if(RNG == 0)
+                {
+                    State.Attack();
+                }
                 if (State.HP <= 0)
                 {
                     End = "You Died!";

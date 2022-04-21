@@ -23,6 +23,7 @@ namespace Gamebook.Model
         public Wither_Skeleton Wither_Skeleton { get; set; }
         public Zombie_Pigman Zombie_Pigman { get; set; }
         public Villager Villager { get; set; }
+        public EndCrystal EndCrystal { get; set; }
         public string EnemyName { get; set; }
         public int EnemyHP { get; set; } = 0;
         public int EnemyDamage { get; set; }
@@ -30,6 +31,7 @@ namespace Gamebook.Model
         public string VillagerDialog { get; set; }
         public bool WinShield { get; set; } = false;
         public bool Chance { get; set; } = true;
+        
 
         public void GetArmor() // nasadit armor
         {
@@ -72,6 +74,7 @@ namespace Gamebook.Model
             EnemyHP = Zombie.HP;
             EnemyDamage = Zombie.Damage;
         }
+
 
         public void GetSkeleton() //vytvořit skeletona
         {
@@ -127,6 +130,13 @@ namespace Gamebook.Model
             VillagerName = Villager.Name;
             VillagerDialog = Villager.Dialog;
         }
+        public void GetEndCrystal() //vytvořit EndCrystal
+        {
+            EndCrystal = new EndCrystal();
+            EnemyName = EndCrystal.Name;
+            EnemyHP = EndCrystal.HP;
+            EnemyDamage = EndCrystal.Damage;
+        }
 
         public void GetAttacked() //dostat nakládačku
         {
@@ -147,6 +157,10 @@ namespace Gamebook.Model
 
         public void Attack() //zaútočit
         {
+            if (EnemyName == "End Crystal")
+            {
+                EnemyHP -= 1;
+            }
             EnemyHP -= Damage;
         }
 
