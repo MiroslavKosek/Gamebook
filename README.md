@@ -4,9 +4,8 @@
 ```
 Jednoho dne jste se probudili a všimli jste si, že na poličce je prázdné místo.<br />Toto místo patřilo dračímu vejci.<br />
 Vašimi úkoly jsou:
-- Získat dračí vejce
 - Porazit nepřátele
-- Seznámit se s novými přáteli
+- Získat dračí vejce
 - Nezemřít
 
 ```diff
