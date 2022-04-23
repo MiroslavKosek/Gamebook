@@ -32,7 +32,8 @@ namespace Gamebook.Model
         public bool Chance { get; set; } = true;
         public int RNGDEF { get; set; }
         public int RNGATT { get; set; }
-        public int RNGDAM { get; set; }
+        public int RNGDEFDAM { get; set; }
+        public int RNGATTDAM { get; set; }
 
 
         public void GetArmor() // nasadit armor
@@ -147,7 +148,7 @@ namespace Gamebook.Model
             {
                 if (RNGDEF == 0)
                 {
-                    HP -= EnemyDamage + RNGDAM;
+                    HP -= EnemyDamage + RNGDEFDAM;
                 }
                 else
                 {
@@ -176,7 +177,7 @@ namespace Gamebook.Model
             {
                 if (RNGATT == 2)
                 {
-                    EnemyHP -= Damage + RNGDAM;
+                    EnemyHP -= Damage + RNGATTDAM;
                 }
                 else
                 {

@@ -40,7 +40,8 @@ namespace Gamebook.Pages
         public int RNG { get; set; }
         public int RNGDEF { get; set; }
         public int RNGATT { get; set; }
-        public int RNGDAM { get; set; }
+        public int RNGDEFDAM { get; set; }
+        public int RNGATTDAM { get; set; }
         public string EnemyName { get; set; }
         public int EnemyHP { get; set; } = 0;
         public int EnemyDamage { get; set; }
@@ -387,8 +388,10 @@ namespace Gamebook.Pages
             State.RNGDEF = RNGDEF;
             RNGATT = _random.Next(4);
             State.RNGATT = RNGATT;
-            RNGDAM = _random.Next(5) + 1;
-            State.RNGDAM = RNGDAM;
+            RNGDEFDAM = _random.Next(5) + 1;
+            State.RNGDEFDAM = RNGDEFDAM;
+            RNGATTDAM = _random.Next(5) + 1;
+            State.RNGATTDAM = RNGATTDAM;
 
             if (Shield)
             {

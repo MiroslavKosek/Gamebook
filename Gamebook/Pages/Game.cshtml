@@ -183,7 +183,14 @@
         {
             <div class="enemy-stats background">
                 <h1>@Model.EnemyName</h1>
-                <p>HP: @Model.EnemyHP</p>
+                @if (Model.EnemyHP <= 0)
+                {
+                    <p>Dead</p>
+                }
+                else
+                {
+                    <p>HP: @Model.EnemyHP</p>
+                }
                 @if (Model.EnemyName == "Creeper")
                 {
                     <p>Damage: @Model.EnemyDamage</p>
@@ -318,7 +325,7 @@
         <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a>
     }
 
-    @if (Model.ID == 4 && Model.EnemyHP !>= 0 || Model.ID == 8 && Model.EnemyHP !>= 0 || Model.ID == 9 && Model.EnemyHP !>= 0 || Model.ID == 14 && Model.EnemyHP !>= 0 && Model.EnemyName == "Ender Dragon")
+    @if (Model.ID == 4 && Model.EnemyHP > 0 || Model.ID == 8 && Model.EnemyHP > 0 || Model.ID == 9 && Model.EnemyHP > 0 || Model.ID == 14 && Model.EnemyHP > 0 && Model.EnemyName == "Ender Dragon")
     {
         <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID">Attack</a>
     }
