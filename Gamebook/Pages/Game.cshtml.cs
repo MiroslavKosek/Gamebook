@@ -38,6 +38,9 @@ namespace Gamebook.Pages
         public bool Shield { get; set; }
         public bool HasPickaxe { get; set; }
         public int RNG { get; set; }
+        public int RNGDEF { get; set; }
+        public int RNGATT { get; set; }
+        public int RNGDAM { get; set; }
         public string EnemyName { get; set; }
         public int EnemyHP { get; set; } = 0;
         public int EnemyDamage { get; set; }
@@ -380,6 +383,12 @@ namespace Gamebook.Pages
             State.Attack();
 
             RNG = _random.Next(3);
+            RNGDEF = _random.Next(4);
+            State.RNGDEF = RNGDEF;
+            RNGATT = _random.Next(4);
+            State.RNGATT = RNGATT;
+            RNGDAM = _random.Next(5) + 1;
+            State.RNGDAM = RNGDAM;
 
             if (Shield)
             {

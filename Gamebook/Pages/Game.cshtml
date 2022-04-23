@@ -85,7 +85,7 @@
 
         @if(Model.HasSword)
         {
-            <p>You are holding sword in your hand</p>
+            <p>You are holding sword in your hand (25% to crit)</p>
         }
 
         @if(Model.Shield)
@@ -127,7 +127,7 @@
                     <p>Congratulations, you won this shield.</p>
                 </div>
             }
-            <img class="mob" src="~/lib/images/Villager.png" />
+            <img class="mob" src="~/lib/images/villager.png" />
             <script>
                 var audio = new Audio("../lib/sounds/villager.mp3")
                 audio.currentTime = localStorage.getItem("villager")
@@ -165,7 +165,7 @@
                 </div>
             }
             
-            <img class="mob" src="~/lib/images/Villager-blacksmith.png" />
+            <img class="mob" src="~/lib/images/villager-blacksmith.png" />
             <script>
                 var audio = new Audio("../lib/sounds/villager.mp3")
                 audio.currentTime = localStorage.getItem("villager")
@@ -184,12 +184,19 @@
             <div class="enemy-stats background">
                 <h1>@Model.EnemyName</h1>
                 <p>HP: @Model.EnemyHP</p>
-                <p>Damage: @Model.EnemyDamage</p>
+                @if (Model.EnemyName == "Creeper")
+                {
+                    <p>Damage: @Model.EnemyDamage</p>
+                }
+                else
+                {
+                    <p>Damage: @Model.EnemyDamage (25% to crit)</p>
+                }
             </div>
             @switch (Model.EnemyName)
             {
                 case "Zombie":
-                    <img class="mob" src="~/lib/images/Zombie.png" />
+                    <img class="mob" src="~/lib/images/zombie.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/zombie.mp3")
                         audio.currentTime = localStorage.getItem("zombie")
@@ -230,10 +237,10 @@
                     </script>
                     break;
                 case "End Crystal":
-                    <img class="mob" src="~/lib/images/End_Crystal.png" />
+                    <img class="mob" src="~/lib/images/End-Crystal.png" />
                     break;
                 case "Ender Dragon":
-                    <img class="mob" src="~/lib/images/Ender_Dragon.png" />
+                    <img class="mob" src="~/lib/images/Ender-Dragon.png" />
                     <script>
                         var audio = new Audio("../lib/sounds/dragon.mp3")
                         audio.currentTime = localStorage.getItem("dragon")
@@ -311,12 +318,12 @@
         <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Diamonds" asp-route-id="@Model.ID" asp-route-diamond="@Model.Diamonds">Mine Diamond</a>
     }
 
-    @if (Model.ID == 4 && Model.EnemyHP != 0 || Model.ID == 8 && Model.EnemyHP != 0 || Model.ID == 9 && Model.EnemyHP != 0 || Model.ID == 14 && Model.EnemyHP != 0 && Model.EnemyName == "Ender Dragon")
+    @if (Model.ID == 4 && Model.EnemyHP !>= 0 || Model.ID == 8 && Model.EnemyHP !>= 0 || Model.ID == 9 && Model.EnemyHP !>= 0 || Model.ID == 14 && Model.EnemyHP !>= 0 && Model.EnemyName == "Ender Dragon")
     {
         <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Attack" asp-route-id="@Model.ID">Attack</a>
     }
 
-    @if (Model.ID == 14 && Model.EnemyHP != 0 && Model.EnemyName == "End Crystal")
+    @if (Model.ID == 14 && Model.EnemyHP >= 0 && Model.EnemyName == "End Crystal")
     {
         <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="BowAttack" asp-route-id="@Model.ID">Shoot with bow</a>
         @if (Model.RNG == 0)
@@ -330,7 +337,7 @@
         }
     }
 
-    @if (Model.ID == 14 && Model.EnemyName == "Ender Dragon" && Model.EnemyHP == 0)
+    @if (Model.ID == 14 && Model.EnemyName == "Ender Dragon" && Model.EnemyHP <= 0)
     {
         <a class="btn btn-success m-auto padding" asp-page="Game" asp-page-handler="Finish">Finish him!</a>
     }
@@ -344,7 +351,7 @@
     {
         if (!String.IsNullOrEmpty(target.Description))
         {
-            if (Model.EnemyHP == 0)
+            if (Model.EnemyHP <= 0)
             {
                 <a class="btn btn-secondary padding" asp-page="Game" asp-route-id="@target.Target">@target.Description</a>
             }

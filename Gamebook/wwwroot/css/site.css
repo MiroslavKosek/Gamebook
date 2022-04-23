@@ -66,20 +66,20 @@ html {
 }
 
 .enemy {
-    margin-top: 10%;
+    margin-top: 12.5%;
     margin-left: 35%;
 }
 
 .enemy-stats {
     position: absolute;
-    margin-left: 200%;
+    margin-left: 50%;
 }
 
 .villager-stats {
-    width: 250%;
+    width: 112.5%;
     position: absolute;
-    margin-top: 50%;
-    margin-left: 200%;
+    margin-top: 12.5%;
+    margin-left: 50%;
 }
 
 .padding {
@@ -91,8 +91,8 @@ html {
 }
 
 .mob {
-    width: 200%;
-    height: 200%;
+    width: 50%;
+    height: 50%;
 }
 
 .background {
@@ -119,19 +119,19 @@ html {
 
     .enemy {
         margin-top: 10%;
-        margin-left: 40%;
+        margin-left: 37.5%;
     }
 
     .enemy-stats {
         position: absolute;
-        margin-left: 150%;
+        margin-left: 37.5%;
     }
 
     .villager-stats {
-        width: 250%;
+        width: 75%;
         position: absolute;
-        margin-top: 50%;
-        margin-left: 150%;
+        margin-top: 10.6%;
+        margin-left: 37.5%;
     }
 
     .padding {
@@ -139,7 +139,7 @@ html {
     }
 
     .mob {
-        width: 125%;
-        height: 125%;
+        width: 37.5%;
+        height: 37.5%;
     }
 }

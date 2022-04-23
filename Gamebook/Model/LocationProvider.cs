@@ -22,7 +22,7 @@ namespace Gamebook.Model
             new Location("Village house", "You have entered the house in Village."),//12///*
             new Location("Nether Portal to the Stronghold", " Portal to the Stronghold."),//13 
             new Location("END"," Welcome in End."),//14 ///*
-            new Location("Blacksmith", "You arrived to blacksmith. Try to ask him, if he has some bow for you.") //15
+            new Location("Blacksmith", "Try to ask him, if he has some bow for you.") //15
         };
 
         public List<Connection> Connections { get; set; } = new List<Connection>

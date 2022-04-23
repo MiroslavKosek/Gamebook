@@ -4,7 +4,6 @@ namespace Gamebook.Model
 {
     public class GameState
     {
-
         public int HP { get; set; } = 100; // počet životů postavy
         public int Armor { get; set; } = 0; // počet armoru postavy
         public int Damage { get; set; } = 1; // počet útočného poškození
@@ -31,7 +30,10 @@ namespace Gamebook.Model
         public string VillagerDialog { get; set; }
         public bool WinShield { get; set; } = false;
         public bool Chance { get; set; } = true;
-        
+        public int RNGDEF { get; set; }
+        public int RNGATT { get; set; }
+        public int RNGDAM { get; set; }
+
 
         public void GetArmor() // nasadit armor
         {
@@ -140,9 +142,17 @@ namespace Gamebook.Model
 
         public void GetAttacked() //dostat nakládačku
         {
+
             if (Armor == 0)
             {
-                HP -= EnemyDamage;
+                if (RNGDEF == 0)
+                {
+                    HP -= EnemyDamage + RNGDAM;
+                }
+                else
+                {
+                    HP -= EnemyDamage;
+                }
             }
             else
             {
@@ -157,13 +167,21 @@ namespace Gamebook.Model
 
         public void Attack() //zaútočit
         {
+
             if (Bow && EnemyName == "End Crystal")
             {
                 EnemyHP -= 1;
             }
             else
             {
-                EnemyHP -= Damage;
+                if (RNGATT == 2)
+                {
+                    EnemyHP -= Damage + RNGDAM;
+                }
+                else
+                {
+                    EnemyHP -= Damage;
+                }
             }
         }
 
