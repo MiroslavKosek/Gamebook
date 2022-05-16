@@ -114,6 +114,5 @@ namespace Gamebook.Model
             }
             return false;
         }
-
     }
 }
