@@ -51,10 +51,10 @@ namespace Gamebook.Model
             new Connection(9, 10,"Return to Road in Nether"), //ze strongholdu na cestu
             new Connection(6, 13, "Go back to Nether"), //ze strongholdu do netheru
             new Connection(13, 10, "Return to Road"),//portal cesta nether
-            new Connection(5, 1, "Go back on Road to the Home "),//vratit se zpet na ceste
+            new Connection(5, 1, "Go back on Road to the Home"),//vratit se zpet na ceste
             new Connection(1, 0, "Go back Home"),//z cesty domu
             new Connection(11, 1, "Return to Road"),//od portalu zpet na cestu
-            new Connection(2, 11,"Return to over World "),
+            new Connection(2, 11,"Return to over World"),
             new Connection(3, 1, "Return to Road"),//z dolu na cestu
             new Connection(7, 6, "Return to the Stronghold corridors"),//zpet do cest ve strongholdu
         };
