@@ -20,8 +20,8 @@ namespace Gamebook.Model
             new Location("Road", "You are on road in Nether."),//Nether//10
             new Location("Nether Portal", "You are on your way to the nether."),//11 ///*
             new Location("Village house", "You have entered the house in Village."),//12///*
-            new Location("Nether Portal to the Stronghold", " Portal to the Stronghold."),//13 
-            new Location("END"," Welcome in End."),//14 ///*
+            new Location("Nether Portal to the Stronghold", "Portal to the Stronghold."),//13 
+            new Location("End"," Welcome in End."),//14 ///*
             new Location("Blacksmith", "Try to ask him, if he has some bow for you.") //15
         };
 
