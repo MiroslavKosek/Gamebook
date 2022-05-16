@@ -99,6 +99,10 @@ namespace Gamebook.Model
 
         public Location GetLocation(int id)
         {
+            if (id > 15)
+            {
+                return Locations[0];
+            }
             return Locations[id];
         }
 
